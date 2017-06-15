@@ -36,6 +36,13 @@ class App extends Component {
               About
             </Menu.Item>
             </Link>
+            
+            <a href="https://www.linkedin.com/in/ivan-yung-897955109/" target="_blank">
+            <Menu.Item name='linkedin' onClick={this.toggleVisibility}>
+              <Icon name='linkedin square' />
+              LinkedIn
+            </Menu.Item>
+            </a>
 
           </Sidebar>
           <Sidebar.Pusher>
