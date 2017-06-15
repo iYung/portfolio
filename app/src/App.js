@@ -15,6 +15,7 @@ class App extends Component {
   state = { visible: false }
   
   toggleVisibility = () => this.setState({ visible: !this.state.visible })
+  offVisibility = () => {if (this.state.visible) { this.setState({ visible: false}); }}
   
   render(){
     return(
@@ -54,7 +55,7 @@ class App extends Component {
             </a>
 
           </Sidebar>
-          <Sidebar.Pusher id="pusher">
+          <Sidebar.Pusher id="pusher" onClick={this.offVisibility}>
 
             <Segment basic>
               <Icon name="content" size="big" onClick={this.toggleVisibility}/>

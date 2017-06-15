@@ -5,11 +5,28 @@ import {
   Link,
   Redirect
 } from 'react-router-dom'
-import { Container, Menu } from 'semantic-ui-react'
+import { Container, Menu, Image } from 'semantic-ui-react'
 
-const Page2017 = ({ match }) => (
+const Project = props => { return (
   <div>
-    <h3>Hey</h3>
+    <Image shape={"rounded"} bordered={true} centered={true} size={"large"} src={props.pic} alt={props.altTxt}></Image>
+   <h3>{props.name}</h3>
+   {props.txt}
+  </div>)
+}
+
+const Page2017 = () => (
+  <div>
+  <Project name="This Website" txt="Text goes here about the project." altTxt="My website's frontpage" pic="http://i.imgur.com/sJtdXO0.png" />
+  <Project name="This Website" txt="Text goes here about the project." altTxt="My website's frontpage" pic="http://i.imgur.com/sJtdXO0.png" />
+  </div>
+)
+
+const Page2015 = () => (
+  <div>
+    <Image shape={"rounded"} height={"210px"}  bordered={true} centered={true} size={"large"} src="http://i.imgur.com/nWYgrHT.jpg" alt="Me using JOFAR"></Image>
+    <h3>Just Out For a Rift</h3>
+    Text text text
   </div>
 )
 
@@ -41,7 +58,8 @@ class Projects extends Component {
       </Menu>
 
       <Route exact path="/projects" render={() => ( <Redirect to="/projects/2017"/>)}/>
-       <Route path="/projects/2017" component={Page2017}/>
+      <Route path="/projects/2017" component={Page2017}/>
+      <Route path="/projects/2015" component={Page2015}/>
       
       </Container>
   </div>)

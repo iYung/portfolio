@@ -1,11 +1,11 @@
 import React from 'react';
 import './home.css'
-import { Container } from 'semantic-ui-react'
+import { Container, Image } from 'semantic-ui-react'
 
 const Home = () => (
   <div>
     <Container text textAlign={"center"}>
-      <img className="img" src="http://i.imgur.com/sRN14ro.png" alt="me"></img>
+      <Image shape={"circular"} centered={true} size={"small"} src="http://i.imgur.com/sRN14ro.png" alt="me"></Image>
       <h2>Ivan Yung</h2>
     </Container>
     <br/>
