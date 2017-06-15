@@ -9,6 +9,7 @@ import './App.css'
 
 import Home from './components/home/home'
 import About from './components/about/about'
+import Projects from './components/projects/projects'
 
 class App extends Component {
   state = { visible: false }
@@ -20,7 +21,8 @@ class App extends Component {
       <div>
 
         <Router>
-          <Sidebar.Pushable as={Segment}>
+
+          <Sidebar.Pushable as={Segment} id="pushable">
           <Sidebar as={Menu} animation='push' width='thin' visible={this.state.visible} icon='labeled' vertical inverted>
           
             <Link to="/">
@@ -37,6 +39,13 @@ class App extends Component {
             </Menu.Item>
             </Link>
             
+            <Link to="/projects">
+            <Menu.Item name='projects' onClick={this.toggleVisibility}>
+              <Icon name='computer' />
+              Projects
+            </Menu.Item>
+            </Link>
+            
             <a href="https://www.linkedin.com/in/ivan-yung-897955109/" target="_blank">
             <Menu.Item name='linkedin' onClick={this.toggleVisibility}>
               <Icon name='linkedin square' />
@@ -45,15 +54,20 @@ class App extends Component {
             </a>
 
           </Sidebar>
-          <Sidebar.Pusher>
+          <Sidebar.Pusher id="pusher">
 
             <Segment basic>
               <Icon name="content" size="big" onClick={this.toggleVisibility}/>
               
-              <p />
+              <p/>
       
               <Route exact path="/" component={Home}/>
               <Route path="/about" component={About}/>
+              <Route path="/projects" component={Projects}/>
+              
+              <p/>
+              <p/>
+              
             </Segment>
 
           </Sidebar.Pusher>

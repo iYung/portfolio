@@ -1,7 +1,15 @@
-#root {
+#pusher {
+    background-color:rgba(255, 255, 255, 1);
+    border: 0;
+}
+
+#root > [data-reactroot], #root {
     height: 100%;
 }
 
-#root > [data-reactroot] {
+#pushable {
     height: 100%;
+    background-color: #1B1C1D;
+    border: 0;
+    border-radius: 0;
 }

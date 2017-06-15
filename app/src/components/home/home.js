@@ -5,7 +5,7 @@ import { Container } from 'semantic-ui-react'
 const Home = () => (
   <div>
     <Container text textAlign={"center"}>
-      <img bordered className="img" src="http://i.imgur.com/sRN14ro.png" alt="me"></img>
+      <img className="img" src="http://i.imgur.com/sRN14ro.png" alt="me"></img>
       <h2>Ivan Yung</h2>
     </Container>
     <br/>
