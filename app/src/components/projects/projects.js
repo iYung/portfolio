@@ -5,13 +5,14 @@ import {
   Link,
   Redirect
 } from 'react-router-dom'
-import { Container, Menu, Image } from 'semantic-ui-react'
+import { Container, Menu, Image, Divider } from 'semantic-ui-react'
 
 const Project = props => { return (
   <div>
     <Image shape={"rounded"} bordered={true} centered={true} size={"large"} src={props.pic} alt={props.altTxt}></Image>
    <h3>{props.name}</h3>
    {props.txt}
+   <Divider/>
   </div>)
 }
 
@@ -24,9 +25,7 @@ const Page2017 = () => (
 
 const Page2015 = () => (
   <div>
-    <Image shape={"rounded"} height={"210px"}  bordered={true} centered={true} size={"large"} src="http://i.imgur.com/nWYgrHT.jpg" alt="Me using JOFAR"></Image>
-    <h3>Just Out For a Rift</h3>
-    Text text text
+    <Project name="Just Out For a Rift" txt="Text goes right here" altTxt="Me on JOFaR" pic="http://i.imgur.com/nWYgrHT.jpg" />
   </div>
 )
 
