@@ -12,22 +12,21 @@ const Project = props => { return (
     <Image shape={"rounded"} bordered={true} centered={true} size={"large"} src={props.pic} alt={props.altTxt}></Image>
    <h3>{props.name}</h3>
    {props.txt}
-   <Divider/>
   </div>)
 }
 
 const Page2017 = () => (
   <div>
-  <Project name="This Website" txt="Text goes here about the project." altTxt="My website's frontpage" pic="http://i.imgur.com/sJtdXO0.png" />
-  <Project name="Green Waste Bin" txt="Blah blah blah" altTxt="My team posing behind the project" pic="http://i.imgur.com/IjdrER0.png"/>
+  <Project name="This Website" txt="Text goes here about the project." altTxt="My website's frontpage" pic="http://i.imgur.com/sJtdXO0.png" /><Divider/>
+  <Project name="Green Waste Bin" txt="Blah blah blah" altTxt="My team posing behind the project" pic="http://i.imgur.com/IjdrER0.png"/><Divider/>
   <Project name="Theia" txt="Text goes here about the project." altTxt="Me wearing the project" pic="http://i.imgur.com/J1zmOZ3.png" />
   </div>
 )
 
 const Page2016 = () => (
   <div>
-  <Project name="Braille Printer" txt="Text goes here about the project." altTxt="A close up of the printer" pic="http://i.imgur.com/LFbglpi.png" />
-  <Project name="AR Watch" txt="Text goes here about the project." altTxt="A view of AR Watch's output" pic="http://i.imgur.com/ZZbcwyf.png" />
+  <Project name="Braille Printer" txt="Text goes here about the project." altTxt="A close up of the printer" pic="http://i.imgur.com/LFbglpi.png" /><Divider/>
+  <Project name="AR Watch" txt="Text goes here about the project." altTxt="A view of AR Watch's output" pic="http://i.imgur.com/ZZbcwyf.png" /><Divider/>
   <Project name="Shake N Quake" txt="Text goes here about the project." altTxt="A close up on the final project" pic="http://i.imgur.com/CzQJBAS.png" />
   </div>
 )

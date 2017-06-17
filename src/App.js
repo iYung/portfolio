@@ -10,6 +10,7 @@ import './App.css'
 import Home from './components/home/home'
 import EduExp from './components/eduexp/eduexp'
 import Projects from './components/projects/projects'
+import Achievements from './components/achievements/achievements'
 
 class App extends Component {
   state = { visible: false }
@@ -47,6 +48,13 @@ class App extends Component {
             </Menu.Item>
             </Link>
             
+            <Link to="/achievements">
+            <Menu.Item name='achievements' onClick={this.toggleVisibility}>
+              <Icon name='trophy' />
+              Achievements
+            </Menu.Item>
+            </Link>
+            
             <a href="https://www.linkedin.com/in/ivan-yung-897955109/" target="_blank">
             <Menu.Item name='linkedin' onClick={this.toggleVisibility}>
               <Icon name='linkedin square' />
@@ -65,6 +73,7 @@ class App extends Component {
               <Route exact path="/" component={Home}/>
               <Route path="/eduexp" component={EduExp}/>
               <Route path="/projects" component={Projects}/>
+              <Route path="/achievements" component={Achievements}/>
               
               <p/>
               <p/>

@@ -1,14 +1,26 @@
 import React from 'react';
 import './eduexp.css'
-import { Container } from 'semantic-ui-react'
+import { Container, Divider } from 'semantic-ui-react'
+
+const Entry = props => { return (
+  <div>
+   <h3>{props.position}</h3>
+   <p>{props.txt}</p>
+   <br/>
+  </div>)
+}
 
 const EduExp = () => (
   <div>
     <Container text>
       <h2>Experience</h2>
-      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa strong. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede link mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi.</p>
+      <Divider/>
+      <Entry position="IT Application Associate Intern @ Celestica — May 2017 to Present" txt="things and stuff go here"/>
+      <Entry position="Preflight Technician @ Ricoh Canada — May 2015 to August 2015" txt="things and stuff go here"/>
       <h2>Education</h2>
-      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa strong. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede link mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi.</p>
+      <Divider/>
+      <Entry position="Computer Engineering @ Western University — May 2015 to Present" txt="things and stuff go here"/>
+      <Entry position="High School @ Mayfield Secondary School — September 2010 to July 2014" txt="things and stuff go here"/>
     </Container>
   </div>
 )
