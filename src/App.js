@@ -8,7 +8,7 @@ import { Sidebar, Segment, Menu, Icon } from 'semantic-ui-react'
 import './App.css'
 
 import Home from './components/home/home'
-import About from './components/about/about'
+import EduExp from './components/eduexp/eduexp'
 import Projects from './components/projects/projects'
 
 class App extends Component {
@@ -33,10 +33,10 @@ class App extends Component {
             </Menu.Item>
             </Link>
             
-            <Link to="/about">
-            <Menu.Item name='about' onClick={this.toggleVisibility}>
-              <Icon name='question circle' />
-              About
+            <Link to="/eduexp">
+            <Menu.Item name='eduxp' onClick={this.toggleVisibility}>
+              <Icon name='university' />
+              Education & Experience
             </Menu.Item>
             </Link>
             
@@ -63,7 +63,7 @@ class App extends Component {
               <p/>
       
               <Route exact path="/" component={Home}/>
-              <Route path="/about" component={About}/>
+              <Route path="/eduexp" component={EduExp}/>
               <Route path="/projects" component={Projects}/>
               
               <p/>

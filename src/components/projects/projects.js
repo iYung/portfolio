@@ -19,13 +19,23 @@ const Project = props => { return (
 const Page2017 = () => (
   <div>
   <Project name="This Website" txt="Text goes here about the project." altTxt="My website's frontpage" pic="http://i.imgur.com/sJtdXO0.png" />
-  <Project name="This Website" txt="Text goes here about the project." altTxt="My website's frontpage" pic="http://i.imgur.com/sJtdXO0.png" />
+  <Project name="Green Waste Bin" txt="Blah blah blah" altTxt="My team posing behind the project" pic="http://i.imgur.com/IjdrER0.png"/>
+  <Project name="Theia" txt="Text goes here about the project." altTxt="Me wearing the project" pic="http://i.imgur.com/J1zmOZ3.png" />
+  </div>
+)
+
+const Page2016 = () => (
+  <div>
+  <Project name="Braille Printer" txt="Text goes here about the project." altTxt="A close up of the printer" pic="http://i.imgur.com/LFbglpi.png" />
+  <Project name="AR Watch" txt="Text goes here about the project." altTxt="A view of AR Watch's output" pic="http://i.imgur.com/ZZbcwyf.png" />
+  <Project name="Shake N Quake" txt="Text goes here about the project." altTxt="A close up on the final project" pic="http://i.imgur.com/CzQJBAS.png" />
   </div>
 )
 
 const Page2015 = () => (
   <div>
-    <Project name="Just Out For a Rift" txt="Text goes right here" altTxt="Me on JOFaR" pic="http://i.imgur.com/nWYgrHT.jpg" />
+    
+    <Project name="Just Out For a Rift" txt="Text goes right here" altTxt="Me on JOFaR" pic="http://i.imgur.com/rhyhVPD.png" />
   </div>
 )
 
@@ -58,6 +68,7 @@ class Projects extends Component {
 
       <Route exact path="/projects" render={() => ( <Redirect to="/projects/2017"/>)}/>
       <Route path="/projects/2017" component={Page2017}/>
+      <Route path="/projects/2016" component={Page2016}/>
       <Route path="/projects/2015" component={Page2015}/>
       
       </Container>
