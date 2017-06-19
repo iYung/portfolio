@@ -8,27 +8,28 @@ import { Container, Menu, Divider } from 'semantic-ui-react'
 
 const Achievement = props => { return (
   <div>
-    <h3>{props.name}</h3>
-   {props.txt}
+    <h3>{props.name} — {props.date}</h3>
+   <p>{props.txt}</p>
   </div>)
 }
 
 const Page2017 = () => (
   <div>
-  <Achievement name="Good Stuff" txt="We won I think" /><Divider/>
-  <Achievement name="Good Stuff" txt="We won I think" />
+  <Achievement name="Good Stuff" date="Sometime" txt="We won I think" /><Divider/>
+  <Achievement name="Good Stuff" date="Oneday" txt="We won I think" />
   </div>
 )
 
 const Page2016 = () => (
   <div>
-  <Achievement name="Good Stuff" txt="We won I think" />
+  <Achievement name="Third Place @ WearHacksKW" date="March" txt="This award was won by my team at a hackathon hosted in Waterloo's Accelerator Centre. We won with our AR project called AR Watch against 15 other submissions. This project was our first experience with augmented reality." /><Divider/>
+  <Achievement name="First Place @ HackWestern 3" date="October" txt="This award was won by my team at a yearly hackathon hosted at Western University. We won with our Raspberry Pi project called Braille Printer against 92 other submissions. This project was our first real experience with Python, solenoids, and the Raspberry Pi." />
   </div>
 )
 
 const Page2015 = () => (
   <div>
-  <Achievement name="Good Stuff" txt="We won I think" />
+  <Achievement name="Best Hardware Hack @ HackWestern 2" date="November" txt="This award was won by my team at a yearly hackathon hosted at Western University. We won with our VR project called Just Out For a Rift against 24 other submissions. My team earned this award by combining hardware and software to provide an unique experience with a new emerging technology." />
   </div>
 )
 
@@ -45,7 +46,7 @@ class Achievements extends Component {
   
     <Container text>
 
-      <h2>Projects</h2>
+      <h2>Achievements</h2>
     
       <Menu pointing secondary>
           <Link to={`/achievements/2017`}>
