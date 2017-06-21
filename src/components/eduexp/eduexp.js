@@ -1,5 +1,4 @@
 import React from 'react';
-import './eduexp.css'
 import { Container, Divider } from 'semantic-ui-react'
 
 const Entry = props => { return (
