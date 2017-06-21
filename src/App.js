@@ -11,6 +11,7 @@ import Home from './components/home/home'
 import EduExp from './components/eduexp/eduexp'
 import Projects from './components/projects/projects'
 import Achievements from './components/achievements/achievements'
+import Footer from './components/footer/footer'
 
 class App extends Component {
   state = { visible: false }
@@ -65,9 +66,9 @@ class App extends Component {
           </Sidebar>
           <Sidebar.Pusher id="pusher" onClick={this.offVisibility}>
 
-            <Segment basic>
+            <Segment basic id="content">
               <Icon name="content" size="big" onClick={this.toggleVisibility}/>
-              
+
               <p/>
       
               <Route exact path="/" component={Home}/>
@@ -76,7 +77,8 @@ class App extends Component {
               <Route path="/achievements" component={Achievements}/>
               
               <p/>
-              <p/>
+              
+              <Footer />
               
             </Segment>
 
