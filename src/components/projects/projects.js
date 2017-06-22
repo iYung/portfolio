@@ -7,18 +7,29 @@ import {
 } from 'react-router-dom'
 import { Container, Menu, Image, Divider } from 'semantic-ui-react'
 
-const Project = props => { return (
+class Project extends Component { 
+  
+  render(){
+  
+  let github = null;  
+  if (this.props.github != null) {
+    github = <a href={this.props.github} target="_blank"><Image avatar id="project-link-logo" src="https://image.flaticon.com/icons/png/512/25/25231.png" shape={"circular"} inline={true} size={"mini"} /></a>;
+  }
+  
+  return (
   <div>
-    <Image shape={"rounded"} bordered={true} centered={true} size={"large"} src={props.pic} alt={props.altTxt}></Image>
-   <h3>{props.name}</h3>
-   {props.txt}
+    <Image shape={"rounded"} bordered={true} centered={true} size={"large"} src={this.props.pic} alt={this.props.altTxt}></Image>
+   <h3>{this.props.name}</h3>
+   <p>{this.props.txt}</p>
+   {github}
   </div>)
+  }
 }
 
 const Page2017 = () => (
   <div>
-  <Project name="This Website" txt="Text goes here about the project." altTxt="My website's frontpage" pic="http://i.imgur.com/sJtdXO0.png" /><Divider/>
-  <Project name="Green Waste Bin" txt="Blah blah blah" altTxt="My team posing behind the project" pic="http://i.imgur.com/IjdrER0.png"/><Divider/>
+  <Project name="This Website" txt="Text goes here about the project." altTxt="My website's frontpage" pic="http://i.imgur.com/sJtdXO0.png" github="https://github.com/iYung/portfolio" /><Divider/>
+  <Project name="Green Waste Bin" txt="Blah blah blah" altTxt="My team posing behind the project" pic="http://i.imgur.com/IjdrER0.png" github="https://github.com/pwnedpixel/GreenGarbage"/><Divider/>
   <Project name="Theia" txt="Text goes here about the project." altTxt="Me wearing the project" pic="http://i.imgur.com/J1zmOZ3.png" />
   </div>
 )

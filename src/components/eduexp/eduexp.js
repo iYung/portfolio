@@ -14,7 +14,7 @@ const EduExp = () => (
       <h2>Experience</h2>
       <Divider/>
       <Entry position="IT Application Associate Intern @ Celestica" date="2017 to Present" txt="things and stuff go here"/><br/>
-      <Entry position="Preflight Technician @ Ricoh Canada" date="May 2015 to August 2015" txt="things and stuff go here"/>
+      <Entry position="Preflight Technician @ Ricoh Canada" date="May 2015 to August 2015" txt="In this position, I installed hardware modules and firmware onto office printers before they were shipped to the customer. I also had to troubleshoot printers and diagnose issues if they arised. The position taught me quite a bit on Excel and how printers operate."/>
       <h2>Education</h2>
       <Divider/>
       <Entry position="Computer Engineering @ Western University" date="May 2015 to Present" txt="things and stuff go here"/><br/>
