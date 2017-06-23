@@ -13,7 +13,12 @@ class Project extends Component {
   
   let github = null;  
   if (this.props.github != null) {
-    github = <a href={this.props.github} target="_blank"><Image avatar id="project-link-logo" src="https://image.flaticon.com/icons/png/512/25/25231.png" shape={"circular"} inline={true} size={"mini"} /></a>;
+    github = <a href={this.props.github} target="_blank"><Image spaced id="project-link-logo" src="https://image.flaticon.com/icons/svg/37/37819.svg" inline={true} size={"mini"} /></a>;
+  }
+  
+  let devpost = null;  
+  if (this.props.devpost != null) {
+    devpost = <a href={this.props.devpost} target="_blank"><Image spaced id="project-link-logo" src="https://nealrs.github.io/devpost-follow-button/icon/devpost.svg" inline={true} size={"mini"} /></a>;
   }
   
   return (
@@ -21,7 +26,7 @@ class Project extends Component {
     <Image shape={"rounded"} bordered={true} centered={true} size={"large"} src={this.props.pic} alt={this.props.altTxt}></Image>
    <h3>{this.props.name}</h3>
    <p>{this.props.txt}</p>
-   {github}
+   <p><b>Links:</b> {devpost}{github}</p>
   </div>)
   }
 }
@@ -29,7 +34,7 @@ class Project extends Component {
 const Page2017 = () => (
   <div>
   <Project name="This Website" txt="Text goes here about the project." altTxt="My website's frontpage" pic="http://i.imgur.com/sJtdXO0.png" github="https://github.com/iYung/portfolio" /><Divider/>
-  <Project name="Green Waste Bin" txt="Blah blah blah" altTxt="My team posing behind the project" pic="http://i.imgur.com/IjdrER0.png" github="https://github.com/pwnedpixel/GreenGarbage"/><Divider/>
+  <Project name="Green Waste Bin" txt="Blah blah blah" altTxt="My team posing behind the project" pic="http://i.imgur.com/IjdrER0.png" github="https://github.com/pwnedpixel/GreenGarbage" devpost="https://devpost.com/software/green-waste-bin"/><Divider/>
   <Project name="Theia" txt="Text goes here about the project." altTxt="Me wearing the project" pic="http://i.imgur.com/J1zmOZ3.png" />
   </div>
 )
