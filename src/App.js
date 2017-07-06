@@ -18,7 +18,6 @@ class App extends Component {
   
   constructor(props) {
     super(props)
-
     this.state = {
       height: 0
     }
@@ -30,7 +29,6 @@ class App extends Component {
   }
   
   state = { visible: false }
-  
   toggleVisibility = () => this.setState({ visible: !this.state.visible })
   offVisibility = () => {if (this.state.visible) { this.setState({ visible: false}); }}
   
@@ -38,10 +36,8 @@ class App extends Component {
     
     return(
       <div>
-      
         <Router>
           <div>
-      
             <header ref={ (headerElement) => this.headerElement = headerElement}>
               <Menu stackable id="menuBar">
                 <Dropdown item labeled id="menuButton" icon={<Icon name="content" size="big" />}>
@@ -69,25 +65,19 @@ class App extends Component {
                 </Dropdown>
               </Menu>
             </header>
-
-              <div style={{height: this.state.height}}></div>
-      
-                <Container text id="contentBox">
-                  <Route exact path="/" component={Home}/>
-                  <Route path="/eduexp" component={EduExp}/>
-                  <Route path="/projects" component={Projects}/>
-                  <Route path="/achievements" component={Achievements}/>
-                  <Route path="/admin" component={Admin}/>
-                </Container>
-              
-                <Footer />
-        
+            <div style={{height: this.state.height}}></div>
+            <Container text id="contentBox">
+              <Route exact path="/" component={Home}/>
+              <Route path="/eduexp" component={EduExp}/>
+              <Route path="/projects" component={Projects}/>
+              <Route path="/achievements" component={Achievements}/>
+              <Route path="/admin" component={Admin}/>
+            </Container>
+            <Footer />
           </div>
-          
         </Router>
       </div>
     )
   }
-  
 }
 export default App
