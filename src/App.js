@@ -4,7 +4,7 @@ import {
   Route,
   Link
 } from 'react-router-dom'
-import { Dropdown, Segment, Menu, Icon } from 'semantic-ui-react'
+import { Dropdown, Menu, Icon, Container } from 'semantic-ui-react'
 import './App.css'
 
 import Home from './components/home/home'
@@ -12,6 +12,7 @@ import EduExp from './components/eduexp/eduexp'
 import Projects from './components/projects/projects'
 import Achievements from './components/achievements/achievements'
 import Footer from './components/footer/footer'
+import Admin from './components/admin/admin'
 
 class App extends Component {
   
@@ -42,8 +43,8 @@ class App extends Component {
           <div>
       
             <header ref={ (headerElement) => this.headerElement = headerElement}>
-              <Menu secondary>
-                <Dropdown item labeled icon={<Icon name="content" size="big" />}>
+              <Menu stackable id="menuBar">
+                <Dropdown item labeled id="menuButton" icon={<Icon name="content" size="big" />}>
                   <Dropdown.Menu>
                     <Link to="/">
                       <Dropdown.Item icon="home" text="Home"/>
@@ -68,19 +69,18 @@ class App extends Component {
                 </Dropdown>
               </Menu>
             </header>
-        
-            <Segment basic id="content">
 
               <div style={{height: this.state.height}}></div>
       
-                <Route exact path="/" component={Home}/>
-                <Route path="/eduexp" component={EduExp}/>
-                <Route path="/projects" component={Projects}/>
-                <Route path="/achievements" component={Achievements}/>
+                <Container text id="contentBox">
+                  <Route exact path="/" component={Home}/>
+                  <Route path="/eduexp" component={EduExp}/>
+                  <Route path="/projects" component={Projects}/>
+                  <Route path="/achievements" component={Achievements}/>
+                  <Route path="/admin" component={Admin}/>
+                </Container>
               
                 <Footer />
-              
-            </Segment>
         
           </div>
           
