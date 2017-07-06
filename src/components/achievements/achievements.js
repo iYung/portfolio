@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {
   Route,
   Link,
@@ -38,7 +38,8 @@ const Page2015 = () => (
   </Segment.Group>
 )
 
-const Nav = props => { return (
+class Nav extends Component {
+  render(){ return (
   <Segment id="mainBar" textAlign={"center"}>
     <h2>Achievements</h2>
     <Menu pointing secondary>
@@ -53,7 +54,8 @@ const Nav = props => { return (
       </Link>
     </Menu>
   </Segment>  
-)}
+  )}
+}
 
 const Achievements = () => (
   <div>
