@@ -5,6 +5,11 @@ import {
 import { Menu, Dropdown, Icon } from 'semantic-ui-react'
 
 class Header extends Component { 
+    
+    componentDidMount() {
+    const height = document.getElementById('menuBar').clientHeight;
+    this.props.updateheight(height);
+  }
   
   render(){
   

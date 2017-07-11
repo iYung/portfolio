@@ -23,9 +23,8 @@ class App extends Component {
     }
   }
   
-  componentDidMount() {
-    const height = this.headerElement.clientHeight;
-    this.setState({ height });
+  updateHeight = (height) => {
+    this.setState({ height: height });
   }
   
   state = { visible: false }
@@ -38,7 +37,7 @@ class App extends Component {
       <div>
         <Router>
           <div>
-            <Header ref={ (headerElement) => this.headerElement = headerElement}/>
+            <Header updateheight={this.updateHeight}/>
             <div style={{height: this.state.height}}></div>
             <Container text id="contentBox">
               <Route exact path="/" component={Home}/>
