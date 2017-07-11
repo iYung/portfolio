@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import { Button, Form, Segment } from 'semantic-ui-react'
 
-const Login = () => (
+class Login extends Component { 
+   render(){ return(
   <div>
     <Segment.Group>
       <Segment id="mainBar" textAlign={"center"}>
@@ -17,18 +18,30 @@ const Login = () => (
           <label>Password</label>
           <input placeholder='Password' />
         </Form.Field>
-        <Button>Login</Button>
+        <h2 onClick={this.props.onclick}>Login</h2>
       </Form>
       </Segment>
     </Segment.Group>
   </div>
-)
+)}}
 
 class Admin extends Component { 
+  constructor(){
+    super();
+    this.state = {loggedIn: false};
+  }
   
-  render(){ return(
-    <Login/>
-  )}
+  login = () => {
+    this.setState({loggedIn: true})
+  }
+  
+  render(){
+    if (this.state.loggedIn) {
+      return(<div/>)
+    } else {
+      return(<Login onclick={this.login}/>)
+    }
+  }
   
 }
 export default Admin
