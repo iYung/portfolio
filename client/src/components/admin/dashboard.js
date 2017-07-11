@@ -42,7 +42,7 @@ class Nav extends Component {
   render(){ return (
     <Segment id="mainBar" textAlign={"center"}>
       <h2>Admin Dashboard</h2>
-      <Menu pointing secondary>
+      <Menu pointing secondary stackable>
         <Link to={'/admin/home'}>
           <Menu.Item name='home' active={this.props.activeItem === 'home'} />
         </Link>
