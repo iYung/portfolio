@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import { Button, Form, Segment } from 'semantic-ui-react'
 
+import Dashboard from './dashboard'
+
 class Login extends Component { 
    render(){ return(
   <div>
@@ -18,7 +20,7 @@ class Login extends Component {
           <label>Password</label>
           <input placeholder='Password' />
         </Form.Field>
-        <h2 onClick={this.props.onclick}>Login</h2>
+        <Button onClick={this.props.onclick}>Login</Button>
       </Form>
       </Segment>
     </Segment.Group>
@@ -37,7 +39,7 @@ class Admin extends Component {
   
   render(){
     if (this.state.loggedIn) {
-      return(<div/>)
+      return(<Dashboard/>)
     } else {
       return(<Login onclick={this.login}/>)
     }
