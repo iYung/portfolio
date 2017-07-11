@@ -1,9 +1,13 @@
-import React from 'react';
-import { Button, Form, Container } from 'semantic-ui-react'
+import React, {Component} from 'react';
+import { Button, Form, Segment } from 'semantic-ui-react'
 
-const Admin = () => (
+const Login = () => (
   <div>
-    <Container text>
+    <Segment.Group>
+      <Segment id="mainBar" textAlign={"center"}>
+        <h2>Log In</h2>
+      </Segment>
+      <Segment textAlign={"left"}>
       <Form>
         <Form.Field>
           <label>Username</label>
@@ -15,8 +19,16 @@ const Admin = () => (
         </Form.Field>
         <Button>Login</Button>
       </Form>
-    </Container>
+      </Segment>
+    </Segment.Group>
   </div>
 )
 
+class Admin extends Component { 
+  
+  render(){ return(
+    <Login/>
+  )}
+  
+}
 export default Admin

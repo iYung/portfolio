@@ -22,10 +22,6 @@ app.use(function(req, res, next) {
 
 var port = 3000;        // set our port
 
-app.get('/', function(req, res) {
-    res.json({ message: 'hooray! welcome to the root' });   
-});
-
 // ROUTES FOR OUR API
 // =============================================================================
 var router = express.Router();              // get an instance of the express Router
