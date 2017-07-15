@@ -35,7 +35,7 @@ router.route('/achievements')
         achievement.year = req.body.year;
         achievement.save(function(err) {
             if (err)
-                res.send(err);
+                return res.send(err);
             res.json({ message: 'Achievement created!' });
         });
     })
@@ -55,24 +55,37 @@ router.route('/achievements/:year')
             year: req.params.year
         },function(err, achievements) {
             if (err)
-                res.send(err);
+                return res.send(err);
             res.json(achievements);
         });
     });
 //find and edit a achievement
-router.route('/achievements/:id')
+router.route('/achievement/:id')
     .put(function(req, res) {
         Achievement.findById(req.params.id, function(err, achievement) {
-            if (err)
-                return res.send(err);
-            achievement.name = req.body.name;
-            achievement.date = req.body.date;
-            achievement.text = req.body.text;
-            achievement.save(function(err) {
-                if (err)
-                    return res.send(err);
-                console.log(achievement.name + " edited!");
-            });
+            if (achievement == null) {
+                return res.send("Cannot find achievement with id " + req.params.id);
+            }else{
+                achievement.name = req.body.name;
+                achievement.date = req.body.date;
+                achievement.text = req.body.text;
+                achievement.save(function(err) {
+                    if (err)
+                        return res.send(err);
+                });
+                return res.send(achievement.name + " edited!");
+            }
+        });
+    })
+    .get(function(req, res) {
+        Achievement.find({
+            _id: req.params.id
+        },function(err, achievements) {
+            if (achievements.length < 1) {
+                return res.send("Cannot find achievement with id " + req.params.id);
+            }else{
+                return res.json(achievements);
+            }
         });
     });
 
