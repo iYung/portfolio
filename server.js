@@ -27,7 +27,6 @@ router.get('/', function(req, res) {
 
 //achievements
 router.route('/achievements')
-
     .post(function(req, res) {
         var achievement = new Achievement();     
         achievement.name = req.body.name;
@@ -40,24 +39,40 @@ router.route('/achievements')
             res.json({ message: 'Achievement created!' });
         });
     })
-    
     .delete(function(req, res) {
         Achievement.remove({
             __v: 0
-        }, function(err, chord) {
+        }, function(err, achievement) {
             if (err)
                 return res.send(err);
             res.json({ message: 'Successfully deleted all achievements' });
         });
     });
-    
-router.route('/achievements/2016')
-
+//get achievements by year
+router.route('/achievements/:year')
     .get(function(req, res) {
-        Achievement.find(function(err, achievements) {
+        Achievement.find({
+            year: req.params.year
+        },function(err, achievements) {
             if (err)
                 res.send(err);
             res.json(achievements);
+        });
+    });
+//find and edit a achievement
+router.route('/achievements/:id')
+    .put(function(req, res) {
+        Achievement.findById(req.params.id, function(err, achievement) {
+            if (err)
+                return res.send(err);
+            achievement.name = req.body.name;
+            achievement.date = req.body.date;
+            achievement.text = req.body.text;
+            achievement.save(function(err) {
+                if (err)
+                    return res.send(err);
+                console.log(achievement.name + " edited!");
+            });
         });
     });
 
