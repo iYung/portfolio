@@ -14,16 +14,33 @@ const Achievement = props => { return (
   </Segment>)
 }
 
-const Page2017 = () => (
-  <Segment.Group>
-    <Nav activeItem={'2017'}/>
-    <Achievement name="Best Domain Name from Domain.com @ ConUHacks" date="January" txt="This award was won by my team in a hackathon hosted at Concordia University. We won with our Raspberry Pi project called Theia against 7 other submissions. The award was given due to our punny domain name for our webpage hosted by Azure." />
-    <Achievement name="Best .Tech Domain @ ConUHacks" date="January" txt="This award was won by my team in a hackathon hosted at Concordia University. We won with our Raspberry Pi project called Theia against 7 other submissions. The award was given due to our punny domain name for our webpage hosted by Azure." />
-    <Achievement name="Second Place @ QHacks" date="February" txt="This award was won by my team in a hackathon hosted at Queen's University. We won with our Raspberry Pi project called Green Garbage Bin against 84 other submissions. This project was a combination of our new skills from the past few hackathon projects." />
-    <Achievement name="Best Use of Indico's APIs @ QHacks" date="February" txt="This award was won by my team in a hackathon hosted at Queen's University. We won with our Raspberry Pi project called Green Garbage Bin against 12 other submissions. This project was a combination of our new skills from the past few hackathon projects." />
-  </Segment.Group>
-)
+class Page2017 extends Component {
   
+  constructor(props) {
+    super(props);
+    this.state = {
+      achievements: []
+    };
+  }
+  
+  componentDidMount() {
+    Axios.get('https://portfolio-iyung.c9users.io/api/achievements/2017')
+      .then(res => {
+        const achievements = res.data;
+        this.setState({ achievements });
+      });
+  }
+  
+  render(){ return (
+  <Segment.Group>
+    <Nav activeItem='2017'/>
+    {this.state.achievements.map(achievement =>
+            <Achievement name={achievement.name} date={achievement.date} txt={achievement.text}/>
+    )}
+    </Segment.Group>
+  )}
+}
+
 class Page2016 extends Component {
   
   constructor(props) {
@@ -51,12 +68,32 @@ class Page2016 extends Component {
   )}
 }
 
-const Page2015 = () => (
+class Page2015 extends Component {
+  
+  constructor(props) {
+    super(props);
+    this.state = {
+      achievements: []
+    };
+  }
+  
+  componentDidMount() {
+    Axios.get('https://portfolio-iyung.c9users.io/api/achievements/2015')
+      .then(res => {
+        const achievements = res.data;
+        this.setState({ achievements });
+      });
+  }
+  
+  render(){ return (
   <Segment.Group>
-    <Nav activeItem='2015' />
-    <Achievement name="Best Hardware Hack @ HackWestern 2" date="November" txt="This award was won by my team in a hackathon hosted at Western University. We won with our VR project called Just Out For a Rift against 24 other submissions. My team earned this award by combining hardware and software to provide an unique experience with a new emerging technology." />
-  </Segment.Group>
-)
+    <Nav activeItem='2015'/>
+    {this.state.achievements.map(achievement =>
+            <Achievement name={achievement.name} date={achievement.date} txt={achievement.text}/>
+    )}
+    </Segment.Group>
+  )}
+}
 
 class Nav extends Component {
   render(){ return (
