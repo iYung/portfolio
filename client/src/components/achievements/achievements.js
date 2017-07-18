@@ -5,6 +5,7 @@ import {
   Redirect
 } from 'react-router-dom'
 import { Segment, Menu } from 'semantic-ui-react'
+import Axios from 'axios';
 
 const Achievement = props => { return (
   <Segment>
@@ -23,13 +24,32 @@ const Page2017 = () => (
   </Segment.Group>
 )
   
-const Page2016 = () => (
+class Page2016 extends Component {
+  
+  constructor(props) {
+    super(props);
+    this.state = {
+      achievements: []
+    };
+  }
+  
+  componentDidMount() {
+    Axios.get('https://portfolio-iyung.c9users.io/api/achievements/2016')
+      .then(res => {
+        const achievements = res.data;
+        this.setState({ achievements });
+      });
+  }
+  
+  render(){ return (
   <Segment.Group>
     <Nav activeItem='2016'/>
-    <Achievement name="Third Place @ WearHacksKW" date="March" txt="This award was won by my team in a hackathon hosted in Waterloo's Accelerator Centre. We won with our AR project called AR Watch against 14 other submissions. This project was our first experience with augmented reality." />
-    <Achievement name="First Place @ HackWestern 3" date="October" txt="This award was won by my team in a hackathon hosted at Western University. We won with our Raspberry Pi project called Braille Printer against 91 other submissions. This project was our first real experience with Python, solenoids, and the Raspberry Pi." />
-  </Segment.Group>
-)
+    {this.state.achievements.map(achievement =>
+            <Achievement name={achievement.name} date={achievement.date} txt={achievement.text}/>
+    )}
+    </Segment.Group>
+  )}
+}
 
 const Page2015 = () => (
   <Segment.Group>
