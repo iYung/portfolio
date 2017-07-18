@@ -34,8 +34,8 @@ class Page2017 extends Component {
   render(){ return (
   <Segment.Group>
     <Nav activeItem='2017'/>
-    {this.state.achievements.map(achievement =>
-            <Achievement name={achievement.name} date={achievement.date} txt={achievement.text}/>
+    {this.state.achievements.map((achievement, i) =>
+            <Achievement key={achievement._id} name={achievement.name} date={achievement.date} txt={achievement.text}/>
     )}
     </Segment.Group>
   )}
@@ -62,7 +62,7 @@ class Page2016 extends Component {
   <Segment.Group>
     <Nav activeItem='2016'/>
     {this.state.achievements.map(achievement =>
-            <Achievement name={achievement.name} date={achievement.date} txt={achievement.text}/>
+            <Achievement key={achievement._id} name={achievement.name} date={achievement.date} txt={achievement.text}/>
     )}
     </Segment.Group>
   )}
@@ -89,7 +89,7 @@ class Page2015 extends Component {
   <Segment.Group>
     <Nav activeItem='2015'/>
     {this.state.achievements.map(achievement =>
-            <Achievement name={achievement.name} date={achievement.date} txt={achievement.text}/>
+            <Achievement key={achievement._id} name={achievement.name} date={achievement.date} txt={achievement.text}/>
     )}
     </Segment.Group>
   )}

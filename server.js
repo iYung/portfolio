@@ -80,7 +80,7 @@ router.route('/achievement/:id')
     .get(function(req, res) {
         Achievement.find({
             _id: req.params.id
-        },function(err, achievements) {
+        },function( achievements ) {
             if (achievements.length < 1) {
                 return res.send("Cannot find achievement with id " + req.params.id);
             }else{
