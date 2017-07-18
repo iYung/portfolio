@@ -32,11 +32,11 @@ class Page2017 extends Component {
   }
   
   render(){ return (
-  <Segment.Group>
-    <Nav activeItem='2017'/>
-    {this.state.achievements.map((achievement, i) =>
-            <Achievement key={achievement._id} name={achievement.name} date={achievement.date} txt={achievement.text}/>
-    )}
+    <Segment.Group>
+      <Nav activeItem='2017'/>
+      {this.state.achievements.map((achievement, i) =>
+        <Achievement key={achievement._id} name={achievement.name} date={achievement.date} txt={achievement.text}/>
+      )}
     </Segment.Group>
   )}
 }
