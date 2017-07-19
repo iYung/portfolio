@@ -56,14 +56,14 @@ router.route('/achievements/:year')
             res.json(achievements);
         });
     });
-//create post
-router.route('/achievement')
+//create achievement
+router.route('/achievement/new/:year')
     .post(function(req, res) {
         var achievement = new Achievement();     
         achievement.name = req.body.name;
         achievement.date = req.body.date;
         achievement.text = req.body.text;
-        achievement.year = req.body.year;
+        achievement.year = req.params.year;
         achievement.save(function(err) {
             if (err)
                 return res.send(err);
