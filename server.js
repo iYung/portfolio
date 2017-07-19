@@ -27,16 +27,13 @@ router.get('/', function(req, res) {
 
 //achievements
 router.route('/achievements')
-    .post(function(req, res) {
-        var achievement = new Achievement();     
-        achievement.name = req.body.name;
-        achievement.date = req.body.date;
-        achievement.text = req.body.text;
-        achievement.year = req.body.year;
-        achievement.save(function(err) {
+    .get(function(req, res) {
+        Achievement.find({
+            __v: 0
+        },function(err, achievements) {
             if (err)
                 return res.send(err);
-            res.json({ message: 'Achievement created!' });
+            res.json(achievements);
         });
     })
     .delete(function(req, res) {
@@ -57,6 +54,20 @@ router.route('/achievements/:year')
             if (err)
                 return res.send(err);
             res.json(achievements);
+        });
+    });
+//create post
+router.route('/achievement')
+    .post(function(req, res) {
+        var achievement = new Achievement();     
+        achievement.name = req.body.name;
+        achievement.date = req.body.date;
+        achievement.text = req.body.text;
+        achievement.year = req.body.year;
+        achievement.save(function(err) {
+            if (err)
+                return res.send(err);
+            res.json({ message: 'Achievement created!' });
         });
     });
 //find and edit a achievement
@@ -81,11 +92,20 @@ router.route('/achievement/:id')
         Achievement.find({
             _id: req.params.id
         },function( achievements ) {
-            if (achievements.length < 1) {
+            if (achievements == null) {
                 return res.send("Cannot find achievement with id " + req.params.id);
             }else{
                 return res.json(achievements);
             }
+        });
+    })
+    .delete(function(req, res) {
+        Achievement.remove({
+            _id: req.params.id
+        }, function(err, achievement) {
+            if (err)
+                return res.send(err);
+            res.json({ message: 'Successfully deleted ' + req.params.id});
         });
     });
 
