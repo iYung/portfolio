@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
 var Achievement = require('./models/achievement');
+var User = require('./models/user');
 
 mongoose.connect('mongodb://admin:password@ds117889.mlab.com:17889/portfolio');
 
@@ -25,6 +26,29 @@ router.get('/', function(req, res) {
     res.json({ message: 'hooray! welcome to our api!' });   
 });
 
+//user
+router.route('/user')
+    .post(function(req, res) {
+        User.find({
+            __v: 0
+        },function(err, achievements) {
+            if (err)
+                return res.send(err);
+            res.json(achievements);
+        });
+    })
+    .get(function(req, res) {
+        User.findOne({
+            __v: 0
+        },function(err, user) {
+            if (err)
+                return res.send(err);
+            if (user == null) {
+                return res.send("No user is set up yet!");
+            }else{ return res.json(user);}
+        });
+    });
+    
 //achievements
 router.route('/achievements')
     .get(function(req, res) {
@@ -89,13 +113,11 @@ router.route('/achievement/:id')
         });
     })
     .get(function(req, res) {
-        Achievement.find({
-            _id: req.params.id
-        },function( achievements ) {
-            if (achievements == null) {
+        Achievement.findById(req.params.id, function(err, achievement) {
+            if (achievement == null) {
                 return res.send("Cannot find achievement with id " + req.params.id);
             }else{
-                return res.json(achievements);
+                return res.json(achievement);
             }
         });
     })
