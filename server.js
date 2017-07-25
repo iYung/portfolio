@@ -29,23 +29,14 @@ router.get('/', function(req, res) {
 //user
 router.route('/user')
     .post(function(req, res) {
-        User.find({
-            __v: 0
-        },function(err, achievements) {
-            if (err)
-                return res.send(err);
-            res.json(achievements);
-        });
-    })
-    .get(function(req, res) {
         User.findOne({
             __v: 0
         },function(err, user) {
             if (err)
                 return res.send(err);
             if (user == null) {
-                return res.send("No user is set up yet!");
-            }else{ return res.json(user);}
+                return res.send("Admin creation.");
+            }else{ return res.send("Admin has already been created."); }
         });
     });
     
