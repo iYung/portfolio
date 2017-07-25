@@ -6,14 +6,7 @@ import {
 import { Segment } from 'semantic-ui-react'
 import Achievements from './dashboardPages/achievements';
 import Nav from './dashboardPages/nav';
-
-class Home extends Component { 
-  render(){ return(
-    <Segment.Group>
-      <Nav activeItem={'home'}/>
-      <Segment />
-    </Segment.Group>
-)}}
+import Home from './dashboardPages/home';
 
 class Edu extends Component { 
    render(){ return(

@@ -1,3 +1,7 @@
 #mainBar {
     background-color: #efefef;
 }
+
+#homeText {
+    white-space:pre-wrap;
+}

@@ -10,7 +10,7 @@ class Nav extends Component {
       <h2>Admin Dashboard</h2>
       <Menu pointing secondary stackable>
         <Link to={'/admin/home'}>
-          <Menu.Item name='home' active={this.props.activeItem === 'home'} />
+          <Menu.Item name='Home' active={this.props.activeItem === 'home'} />
         </Link>
         <Link to={`/admin/edu`}>
           <Menu.Item name='Education' active={this.props.activeItem === 'edu'} />

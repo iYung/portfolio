@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 
 var Achievement = require('./models/achievement');
 var User = require('./models/user');
+var Home = require('./models/home');
 
 mongoose.connect('mongodb://admin:password@ds117889.mlab.com:17889/portfolio');
 
@@ -38,6 +39,70 @@ router.route('/user')
             if (user == null) {
                 return res.send("Admin creation.");
             }else{ return res.send("Admin has already been created."); }
+        });
+    });
+    
+//home
+router.route('/home')
+    .post(function(req, res) {
+        Home.findOne({
+            __v: 0
+        },function(err, home) {
+            if (err)
+                return res.send(err);
+            if (home == null) {
+                var newHome = new Home();
+                newHome.title = req.body.title;
+                newHome.image = req.body.image;
+                newHome.text = req.body.text;
+                newHome.save(function(err) {
+                    if (err)
+                        return res.send(err);
+                    res.json({ message: 'Home page data created!' });
+                });
+            } else { return res.json({ message: 'Home page data not found!' }); }
+        });
+    })
+    .put(function(req, res) {
+        Home.findOne({
+            __v: 0
+        },function(err, home) {
+            if (err)
+                return res.send(err);
+            if (home == null){
+                return res.send("Homepage data not found.");
+            } else {  
+                home.title = req.body.title;
+                home.image = req.body.image;
+                home.text = req.body.text;
+                home.save(function(err) {
+                    if (err)
+                        return res.send(err);
+                    res.json({ message: 'New home page data saved!' });
+                });
+            }
+        });
+    })
+    .get(function(req, res) {
+        Home.find({
+            __v: 0
+        },function(err, home) {
+            if (err)
+                return res.send(err);
+            if (home == null){
+                return res.json({ message: 'Home page data not found!' });
+            } else {
+                return res.json(home);
+            }
+        });
+    })
+    .delete(function(req, res) {
+        Home.remove({
+            __v: 0
+        }, function(err, achievement) {
+            if (err)
+                return res.send(err);
+            res.json({ message: 'Successfully deleted home page data!'});
         });
     });
     
