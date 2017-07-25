@@ -15,10 +15,18 @@ class Home extends Component {
     </Segment.Group>
 )}}
 
-class EduExp extends Component { 
+class Edu extends Component { 
    render(){ return(
   <Segment.Group>
-    <Nav activeItem={'eduexp'}/>
+    <Nav activeItem={'edu'}/>
+    <Segment />
+  </Segment.Group>
+)}}
+
+class Exp extends Component { 
+   render(){ return(
+  <Segment.Group>
+    <Nav activeItem={'exp'}/>
     <Segment />
   </Segment.Group>
 )}}
@@ -36,7 +44,8 @@ class Dashboard extends Component {
     <div>
       <Route exact path="/admin" render={() => ( <Redirect to="/admin/home"/>)}/>
       <Route path="/admin/home" component={Home}/>
-      <Route path="/admin/eduexp" component={EduExp}/>
+      <Route path="/admin/edu" component={Edu}/>
+      <Route path="/admin/exp" component={Exp}/>
       <Route path="/admin/projects" component={Projects}/>
       <Route path="/admin/achievements" component={Achievements}/>
     </div>

@@ -12,8 +12,11 @@ class Nav extends Component {
         <Link to={'/admin/home'}>
           <Menu.Item name='home' active={this.props.activeItem === 'home'} />
         </Link>
-        <Link to={`/admin/eduexp`}>
-          <Menu.Item name='Education and Experience' active={this.props.activeItem === 'eduexp'} />
+        <Link to={`/admin/edu`}>
+          <Menu.Item name='Education' active={this.props.activeItem === 'edu'} />
+        </Link>
+        <Link to={`/admin/exp`}>
+          <Menu.Item name='Experience' active={this.props.activeItem === 'exp'} />
         </Link>
         <Link to={`/admin/projects`}>
           <Menu.Item name='Projects' active={this.props.activeItem === 'projects'} />

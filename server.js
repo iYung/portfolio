@@ -10,6 +10,7 @@ mongoose.connect('mongodb://admin:password@ds117889.mlab.com:17889/portfolio');
 
 var port = 3000;
 
+//allow CORS
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(function(req, res, next) {
