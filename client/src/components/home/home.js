@@ -13,7 +13,7 @@ class Home extends Component {
   }
   
   componentDidMount() {
-    Axios.get('https://portfolio-iyung.c9users.io/api/home')
+    Axios.get('/api/home')
       .then(res => {
         const homes = res.data;
         this.setState({ homes });
@@ -29,7 +29,7 @@ class Home extends Component {
           <h2>{home.title}</h2>
         </Segment>
         <Segment textAlign={"left"}>
-          <p id="homeText">{home.text}</p>
+          <p id="textSegment">{home.text}</p>
         </Segment>
       </Segment.Group>
       )}

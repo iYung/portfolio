@@ -10,7 +10,7 @@ import Axios from 'axios';
 const Achievement = props => { return (
   <Segment>
     <h3>{props.name} — {props.date}</h3>
-    <p>{props.txt}</p>
+    <p id="textSegment">{props.txt}</p>
   </Segment>)
 }
 
@@ -24,7 +24,7 @@ class Page2017 extends Component {
   }
   
   componentDidMount() {
-    Axios.get('https://portfolio-iyung.c9users.io/api/achievements/2017')
+    Axios.get('/api/achievements/2017')
       .then(res => {
         const achievements = res.data;
         this.setState({ achievements });
@@ -51,7 +51,7 @@ class Page2016 extends Component {
   }
   
   componentDidMount() {
-    Axios.get('https://portfolio-iyung.c9users.io/api/achievements/2016')
+    Axios.get('/api/achievements/2016')
       .then(res => {
         const achievements = res.data;
         this.setState({ achievements });
@@ -78,7 +78,7 @@ class Page2015 extends Component {
   }
   
   componentDidMount() {
-    Axios.get('https://portfolio-iyung.c9users.io/api/achievements/2015')
+    Axios.get('/api/achievements/2015')
       .then(res => {
         const achievements = res.data;
         this.setState({ achievements });

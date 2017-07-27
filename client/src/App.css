@@ -12,3 +12,7 @@
 #contentBox {
     padding-top: 1%;
 }
+
+#textSegment {
+    white-space:pre-wrap;
+}
