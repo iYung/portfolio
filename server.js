@@ -29,6 +29,7 @@ router.get('/', function(req, res) {
     res.json({ message: 'hooray! welcome to our api!' });   
 });
 
+//------------------------------------------------------------------------------
 //user
 router.route('/user')
     .post(function(req, res) {
@@ -42,7 +43,8 @@ router.route('/user')
             }else{ return res.send("Admin has already been created."); }
         });
     });
-    
+
+//------------------------------------------------------------------------------
 //home
 router.route('/home')
     .post(function(req, res) {
@@ -106,7 +108,8 @@ router.route('/home')
             res.json({ message: 'Successfully deleted home page data!'});
         });
     });
- 
+
+//------------------------------------------------------------------------------
 //projects
 router.route('/projects')
     .get(function(req, res) {
@@ -128,6 +131,7 @@ router.route('/projects')
         });
     });
 
+//------------------------------------------------------------------------------
 //achievements
 router.route('/achievements')
     .get(function(req, res) {
@@ -146,17 +150,6 @@ router.route('/achievements')
             if (err)
                 return res.send(err);
             res.json({ message: 'Successfully deleted all achievements' });
-        });
-    });
-//get achievements by year
-router.route('/achievements/:year')
-    .get(function(req, res) {
-        Achievement.find({
-            year: req.params.year
-        },function(err, achievements) {
-            if (err)
-                return res.send(err);
-            res.json(achievements);
         });
     });
 //get achievements by year
