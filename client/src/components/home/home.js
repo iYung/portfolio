@@ -23,7 +23,7 @@ class Home extends Component {
   render(){ return (
     <div>
       {this.state.homes.map(home =>
-      <Segment.Group>
+      <Segment.Group key={home._id}>
         <Segment id="mainBar" textAlign={"center"}>
           <Image bordered shape={"circular"} centered={true} size={"small"} src={home.image} alt="me"></Image>
           <h2>{home.title}</h2>
