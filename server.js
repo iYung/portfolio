@@ -6,6 +6,7 @@ var mongoose = require('mongoose');
 var Achievement = require('./models/achievement');
 var User = require('./models/user');
 var Home = require('./models/home');
+var Project = require('./models/project');
 
 mongoose.connect('mongodb://admin:password@ds117889.mlab.com:17889/portfolio');
 
@@ -105,7 +106,28 @@ router.route('/home')
             res.json({ message: 'Successfully deleted home page data!'});
         });
     });
-    
+ 
+//projects
+router.route('/projects')
+    .get(function(req, res) {
+        Project.find({
+            __v: 0
+        },function(err, projects) {
+            if (err)
+                return res.send(err);
+            res.json(projects);
+        });
+    })
+    .delete(function(req, res) {
+        Project.remove({
+            __v: 0
+        }, function(err, project) {
+            if (err)
+                return res.send(err);
+            res.json({ message: 'Successfully deleted all projects' });
+        });
+    });
+
 //achievements
 router.route('/achievements')
     .get(function(req, res) {
@@ -124,6 +146,17 @@ router.route('/achievements')
             if (err)
                 return res.send(err);
             res.json({ message: 'Successfully deleted all achievements' });
+        });
+    });
+//get achievements by year
+router.route('/achievements/:year')
+    .get(function(req, res) {
+        Achievement.find({
+            year: req.params.year
+        },function(err, achievements) {
+            if (err)
+                return res.send(err);
+            res.json(achievements);
         });
     });
 //get achievements by year
