@@ -130,6 +130,53 @@ router.route('/projects')
             res.json({ message: 'Successfully deleted all projects' });
         });
     });
+//get projects by year
+router.route('/projects/:year')
+    .get(function(req, res) {
+        Project.find({
+            year: req.params.year
+        },function(err, projects) {
+            if (err)
+                return res.send(err);
+            res.json(projects);
+        });
+    });
+//find and edit a project
+router.route('/project/:id')
+    .put(function(req, res) {
+        Project.findById(req.params.id, function(err, project) {
+            if (project == null) {
+                return res.send("Cannot find project with id " + req.params.id);
+            }else{
+                project.name = req.body.name;
+                project.date = req.body.date;
+                project.text = req.body.text;
+                project.save(function(err) {
+                    if (err)
+                        return res.send(err);
+                });
+                return res.send(project.name + " edited!");
+            }
+        });
+    })
+    .get(function(req, res) {
+        Project.findById(req.params.id, function(err, project) {
+            if (project == null) {
+                return res.send("Cannot find project with id " + req.params.id);
+            }else{
+                return res.json(project);
+            }
+        });
+    })
+    .delete(function(req, res) {
+        Project.remove({
+            _id: req.params.id
+        }, function(err, project) {
+            if (err)
+                return res.send(err);
+            res.json({ message: 'Successfully deleted ' + req.params.id});
+        });
+    });
 
 //------------------------------------------------------------------------------
 //achievements
