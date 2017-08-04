@@ -6,54 +6,115 @@ import {
   Redirect
 } from 'react-router-dom'
 import { Menu, Image, Segment } from 'semantic-ui-react'
+import Axios from 'axios';
 
 class Project extends Component { 
   
   render(){
+    let github = null;  
+    if (this.props.github != null) {
+      github = <a href={this.props.github} target="_blank"><Image spaced id="project-link-logo" src="https://image.flaticon.com/icons/svg/37/37819.svg" inline={true} size={"mini"} /></a>;
+    }
+    let devpost = null;  
+    if (this.props.devpost != null) {
+      devpost = <a href={this.props.devpost} target="_blank"><Image spaced id="project-link-logo" src="https://nealrs.github.io/devpost-follow-button/icon/devpost.svg" inline={true} size={"mini"} /></a>;
+    }
+    let image = null;
+    if (this.props.img != null) {
+      image = <Image shape={"rounded"} bordered={true} centered={true} size={"large"} src={this.props.img} alt={this.props.altTxt}/>;
+    }
   
-  let github = null;  
-  if (this.props.github != null) {
-    github = <a href={this.props.github} target="_blank"><Image spaced id="project-link-logo" src="https://image.flaticon.com/icons/svg/37/37819.svg" inline={true} size={"mini"} /></a>;
+    return (
+      <Segment>
+        {image}
+        <h3>{this.props.name}</h3>
+        <p>{this.props.txt}</p>
+        <p><b>Links:</b> {devpost}{github}</p>
+      </Segment>
+    )
   }
-  let devpost = null;  
-  if (this.props.devpost != null) {
-    devpost = <a href={this.props.devpost} target="_blank"><Image spaced id="project-link-logo" src="https://nealrs.github.io/devpost-follow-button/icon/devpost.svg" inline={true} size={"mini"} /></a>;
+}
+
+class Page2017 extends Component {
+  
+  constructor(props) {
+    super(props);
+    this.state = {
+      projects: []
+    };
   }
   
-  return (
-    <Segment>
-      <Image shape={"rounded"} bordered={true} centered={true} size={"large"} src={this.props.pic} alt={this.props.altTxt}></Image>
-      <h3>{this.props.name}</h3>
-      <p>{this.props.txt}</p>
-      <p><b>Links:</b> {devpost}{github}</p>
-    </Segment>
+  componentDidMount() {
+    Axios.get('/api/projects/2017')
+      .then(res => {
+        const projects = res.data;
+        this.setState({ projects });
+      });
+  }
+  
+  render(){ return (
+    <Segment.Group>
+      <Nav activeItem='2017'/>
+      {this.state.projects.map(project =>
+        <Project key={project._id} name={project.name} date={project.date} txt={project.text} img={project.img} devpost={project.devpost} github={project.github}/>
+      )}
+    </Segment.Group>
   )}
 }
 
-const Page2017 = () => (
-  <Segment.Group>
-    <Nav activeItem={'2017'}/>
-    <Project name="This Website" txt="Text goes here about the project." altTxt="My website's frontpage" pic="http://i.imgur.com/sJtdXO0.png" github="https://github.com/iYung/portfolio" />
-    <Project name="Green Waste Bin" txt="Blah blah blah" altTxt="My team posing behind the project" pic="http://i.imgur.com/IjdrER0.png" github="https://github.com/pwnedpixel/GreenGarbage" devpost="https://devpost.com/software/green-waste-bin"/>
-    <Project name="Theia" txt="Text goes here about the project." altTxt="Me wearing the project" pic="http://i.imgur.com/J1zmOZ3.png" />
-  </Segment.Group>
-)
+class Page2016 extends Component {
+  
+  constructor(props) {
+    super(props);
+    this.state = {
+      projects: []
+    };
+  }
+  
+  componentDidMount() {
+    Axios.get('/api/projects/2016')
+      .then(res => {
+        const projects = res.data;
+        this.setState({ projects });
+      });
+  }
+  
+  render(){ return (
+    <Segment.Group>
+      <Nav activeItem='2016'/>
+      {this.state.projects.map(project =>
+        <Project key={project._id} name={project.name} date={project.date} txt={project.text} img={project.img} devpost={project.devpost} github={project.github}/>
+      )}
+    </Segment.Group>
+  )}
+}
 
-const Page2016 = () => (
-  <Segment.Group>
-    <Nav activeItem={'2016'}/>
-    <Project name="Braille Printer" txt="Text goes here about the project." altTxt="A close up of the printer" pic="http://i.imgur.com/LFbglpi.png" />
-    <Project name="AR Watch" txt="Text goes here about the project." altTxt="A view of AR Watch's output" pic="http://i.imgur.com/ZZbcwyf.png" />
-    <Project name="Shake N Quake" txt="Text goes here about the project." altTxt="A close up on the final project" pic="http://i.imgur.com/CzQJBAS.png" />
-  </Segment.Group>
-)
-
-const Page2015 = () => (
-  <Segment.Group>
-    <Nav activeItem={'2015'}/>
-    <Project name="Just Out For a Rift" txt="Text goes right here" altTxt="Me on JOFaR" pic="http://i.imgur.com/rhyhVPD.png" />
-  </Segment.Group>
-)
+class Page2015 extends Component {
+  
+  constructor(props) {
+    super(props);
+    this.state = {
+      projects: []
+    };
+  }
+  
+  componentDidMount() {
+    Axios.get('/api/projects/2015')
+      .then(res => {
+        const projects = res.data;
+        this.setState({ projects });
+      });
+  }
+  
+  render(){ return (
+    <Segment.Group>
+      <Nav activeItem='2015'/>
+      {this.state.projects.map(project =>
+        <Project key={project._id} name={project.name} date={project.date} txt={project.text} img={project.img} devpost={project.devpost} github={project.github}/>
+      )}
+    </Segment.Group>
+  )}
+}
 
 class Nav extends Component {
   render(){ return (
