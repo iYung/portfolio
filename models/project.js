@@ -6,7 +6,7 @@ var ProjectSchema   = new Schema({
     date: String,
     text: String,
     year: String,
-    image: String,
+    img: String,
     devpost: String,
     github: String
 });

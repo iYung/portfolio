@@ -130,6 +130,23 @@ router.route('/projects')
             res.json({ message: 'Successfully deleted all projects' });
         });
     });
+//create project
+router.route('/project/new/:year')
+    .post(function(req, res) {
+        var project = new Project();     
+        project.name = req.body.name;
+        project.date = req.body.date;
+        project.text = req.body.text;
+        project.img = req.body.img;
+        project.devpost = req.body.devpost;
+        project.github = req.body.github;
+        project.year = req.params.year;
+        project.save(function(err) {
+            if (err)
+                return res.send(err);
+            res.json({ message: 'Project created!' });
+        });
+    });
 //get projects by year
 router.route('/projects/:year')
     .get(function(req, res) {
@@ -151,6 +168,9 @@ router.route('/project/:id')
                 project.name = req.body.name;
                 project.date = req.body.date;
                 project.text = req.body.text;
+                project.img = req.body.img;
+                project.devpost = req.body.devpost;
+                project.github = req.body.github;
                 project.save(function(err) {
                     if (err)
                         return res.send(err);
