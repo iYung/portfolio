@@ -8,6 +8,7 @@ var User = require('./models/user');
 var Home = require('./models/home');
 var Project = require('./models/project');
 var Education = require('./models/education');
+var Experience = require('./models/experience');
 
 mongoose.connect('mongodb://admin:password@ds117889.mlab.com:17889/portfolio');
 
@@ -173,6 +174,75 @@ router.route('/education/:id')
         Education.remove({
             _id: req.params.id
         }, function(err, education) {
+            if (err)
+                return res.send(err);
+            res.json({ message: 'Successfully deleted ' + req.params.id});
+        });
+    });
+
+//------------------------------------------------------------------------------
+//experience
+router.route('/experience')
+    .get(function(req, res) {
+        Experience.find({
+            __v: 0
+        },function(err, experiences) {
+            if (err)
+                return res.send(err);
+            res.json(experiences);
+        });
+    })
+    .delete(function(req, res) {
+        Experience.remove({
+            __v: 0
+        }, function(err, experience) {
+            if (err)
+                return res.send(err);
+            res.json({ message: 'Successfully deleted all experience posts' });
+        });
+    })
+    .post(function(req, res) {
+        var experience = new Experience();     
+        experience.name = req.body.name;
+        experience.date = req.body.date;
+        experience.text = req.body.text;
+        experience.save(function(err) {
+            if (err)
+                return res.send(err);
+            res.json({ message: 'Experience post created!' });
+        });
+    });
+//find and edit a experience
+router.route('/experience/:id')
+    .put(function(req, res) {
+        Experience.findById(req.params.id, function(err, experience) {
+            if (experience == null) {
+                return res.send("Cannot find experience post with id " + req.params.id);
+            }else{
+                experience.name = req.body.name;
+                experience.date = req.body.date;
+                experience.text = req.body.text;
+                experience.save(function(err) {
+                    if (err)
+                        return res.send(err);
+                });
+                return res.send(experience.name + " edited!");
+            }
+        });
+    })
+    .get(function(req, res) {
+        Experience.findById(req.params.id, function(err, experience) {
+            if (experience == null) {
+                return res.send("Cannot find experience post with id " + req.params.id);
+            }else{
+                return res.json(experience);
+            }
+        });
+    })
+    .delete(function(req, res) {
+        Experience.remove({
+            _id: req.params.id
+        }, function(err, experience) {
             if (err)
                 return res.send(err);
             res.json({ message: 'Successfully deleted ' + req.params.id});

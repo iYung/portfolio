@@ -3,20 +3,11 @@ import {
   Route,
   Redirect
 } from 'react-router-dom'
-import { Segment } from 'semantic-ui-react'
 import Achievements from './dashboardPages/achievements';
-import Nav from './dashboardPages/nav';
 import Home from './dashboardPages/home';
 import Projects from './dashboardPages/projects'
 import Edu from './dashboardPages/education'
-
-class Exp extends Component { 
-   render(){ return(
-  <Segment.Group>
-    <Nav activeItem={'exp'}/>
-    <Segment />
-  </Segment.Group>
-)}}
+import Exp from './dashboardPages/experience'
 
 class Dashboard extends Component { 
   render(){ return(

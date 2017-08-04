@@ -11,16 +11,19 @@ import Axios from 'axios';
 class Project extends Component { 
   
   render(){
+    let linksLabel = null;
     let github = null;  
-    if (this.props.github != null) {
+    if (this.props.github !== "") {
+      linksLabel = <b>Links:</b>;
       github = <a href={this.props.github} target="_blank"><Image spaced id="project-link-logo" src="https://image.flaticon.com/icons/svg/37/37819.svg" inline={true} size={"mini"} /></a>;
     }
     let devpost = null;  
-    if (this.props.devpost != null) {
+    if (this.props.devpost !== "") {
+      linksLabel = <b>Links:</b>;
       devpost = <a href={this.props.devpost} target="_blank"><Image spaced id="project-link-logo" src="https://nealrs.github.io/devpost-follow-button/icon/devpost.svg" inline={true} size={"mini"} /></a>;
     }
     let image = null;
-    if (this.props.img != null) {
+    if (this.props.img !== "") {
       image = <Image shape={"rounded"} bordered={true} centered={true} size={"large"} src={this.props.img} alt={this.props.altTxt}/>;
     }
   
@@ -29,7 +32,7 @@ class Project extends Component {
         {image}
         <h3>{this.props.name}</h3>
         <p>{this.props.txt}</p>
-        <p><b>Links:</b> {devpost}{github}</p>
+        {linksLabel} {devpost}{github}
       </Segment>
     )
   }
