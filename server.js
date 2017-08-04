@@ -7,6 +7,7 @@ var Achievement = require('./models/achievement');
 var User = require('./models/user');
 var Home = require('./models/home');
 var Project = require('./models/project');
+var Education = require('./models/education');
 
 mongoose.connect('mongodb://admin:password@ds117889.mlab.com:17889/portfolio');
 
@@ -106,6 +107,75 @@ router.route('/home')
             if (err)
                 return res.send(err);
             res.json({ message: 'Successfully deleted home page data!'});
+        });
+    });
+
+//------------------------------------------------------------------------------
+//education
+router.route('/education')
+    .get(function(req, res) {
+        Education.find({
+            __v: 0
+        },function(err, educations) {
+            if (err)
+                return res.send(err);
+            res.json(educations);
+        });
+    })
+    .delete(function(req, res) {
+        Education.remove({
+            __v: 0
+        }, function(err, education) {
+            if (err)
+                return res.send(err);
+            res.json({ message: 'Successfully deleted all education posts' });
+        });
+    })
+    .post(function(req, res) {
+        var education = new Education();     
+        education.name = req.body.name;
+        education.date = req.body.date;
+        education.text = req.body.text;
+        education.save(function(err) {
+            if (err)
+                return res.send(err);
+            res.json({ message: 'Education post created!' });
+        });
+    });
+//find and edit a education
+router.route('/education/:id')
+    .put(function(req, res) {
+        Education.findById(req.params.id, function(err, education) {
+            if (education == null) {
+                return res.send("Cannot find education post with id " + req.params.id);
+            }else{
+                education.name = req.body.name;
+                education.date = req.body.date;
+                education.text = req.body.text;
+                education.save(function(err) {
+                    if (err)
+                        return res.send(err);
+                });
+                return res.send(education.name + " edited!");
+            }
+        });
+    })
+    .get(function(req, res) {
+        Education.findById(req.params.id, function(err, education) {
+            if (education == null) {
+                return res.send("Cannot find education post with id " + req.params.id);
+            }else{
+                return res.json(education);
+            }
+        });
+    })
+    .delete(function(req, res) {
+        Education.remove({
+            _id: req.params.id
+        }, function(err, education) {
+            if (err)
+                return res.send(err);
+            res.json({ message: 'Successfully deleted ' + req.params.id});
         });
     });
 
