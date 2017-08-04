@@ -8,14 +8,7 @@ import Achievements from './dashboardPages/achievements';
 import Nav from './dashboardPages/nav';
 import Home from './dashboardPages/home';
 import Projects from './dashboardPages/projects'
-
-class Edu extends Component { 
-   render(){ return(
-  <Segment.Group>
-    <Nav activeItem={'edu'}/>
-    <Segment />
-  </Segment.Group>
-)}}
+import Edu from './dashboardPages/education'
 
 class Exp extends Component { 
    render(){ return(
