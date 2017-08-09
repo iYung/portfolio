@@ -8,6 +8,7 @@ import Home from './dashboardPages/home';
 import Projects from './dashboardPages/projects'
 import Edu from './dashboardPages/education'
 import Exp from './dashboardPages/experience'
+import User from './dashboardPages/user'
 
 class Dashboard extends Component { 
   render(){ return(
@@ -18,6 +19,7 @@ class Dashboard extends Component {
       <Route path="/admin/exp" component={Exp}/>
       <Route path="/admin/projects" component={Projects}/>
       <Route path="/admin/achievements" component={Achievements}/>
+      <Route path="/admin/user" component={User}/>
     </div>
 )}}
 export default Dashboard

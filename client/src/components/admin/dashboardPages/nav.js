@@ -24,6 +24,9 @@ class Nav extends Component {
         <Link to={`/admin/achievements`}>
           <Menu.Item name='Achievements' active={this.props.activeItem === 'achievements'} />
         </Link>
+        <Link to={`/admin/user`}>
+          <Menu.Item name='User' active={this.props.activeItem === 'user'} />
+        </Link>
       </Menu>
     </Segment>
   )}
