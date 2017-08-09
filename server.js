@@ -41,8 +41,54 @@ router.route('/user')
             if (err)
                 return res.send(err);
             if (user == null) {
-                return res.send("Admin creation.");
+                var newUser = new User();
+                newUser.username = req.body.username;
+                newUser.password = req.body.password;
+                newUser.save(function(err) {
+                    if (err)
+                        return res.send(err);
+                    res.json({ message: 'New user saved!' });
+                });
             }else{ return res.send("Admin has already been created."); }
+        });
+    })
+    .get(function(req, res) {
+        User.findOne({
+            __v: 0
+        },function(err, user) {
+            if (err)
+                return res.send(err);
+            if (user == null) {
+                return res.json({ message: 'No user found!' });
+            }else{ return res.json(user); }
+        });
+    })
+    .put(function(req, res) {
+        User.findOne({
+            __v: 0
+        },function(err, user) {
+            if (err)
+                return res.send(err);
+            if (user == null){
+                return res.send("User data not found.");
+            } else {  
+                user.username = req.body.username;
+                user.password = req.body.password;
+                user.save(function(err) {
+                    if (err)
+                        return res.send(err);
+                    res.json({ message: 'New user data saved!' });
+                });
+            }
+        });
+    })
+    .delete(function(req, res) {
+        User.remove({
+            __v: 0
+        }, function(err, experience) {
+            if (err)
+                return res.send(err);
+            res.json({ message: 'Successfully deleted all users' });
         });
     });
 
