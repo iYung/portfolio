@@ -1,31 +1,37 @@
 import React, {Component} from 'react';
 import { Button, Form, Segment } from 'semantic-ui-react'
+import Axios from 'axios';
+import Qs from 'qs';
 
 import Dashboard from './dashboard'
 
 class Login extends Component { 
-   render(){ return(
-  <div>
-    <Segment.Group>
-      <Segment id="mainBar" textAlign={"center"}>
-        <h2>Log In</h2>
-      </Segment>
-      <Segment textAlign={"left"}>
-      <Form>
-        <Form.Field>
-          <label>Username</label>
-          <input placeholder='Username' />
-        </Form.Field>
-        <Form.Field>
-          <label>Password</label>
-          <input placeholder='Password' />
-        </Form.Field>
-        <Button onClick={this.props.onclick}>Login</Button>
-      </Form>
-      </Segment>
-    </Segment.Group>
-  </div>
-)}}
+  render(){ 
+    
+    return(
+      <div>
+        <Segment.Group>
+          <Segment id="mainBar" textAlign={"center"}>
+            <h2>Log In</h2>
+          </Segment>
+          <Segment textAlign={"left"}>
+          <Form>
+            <Form.Field>
+              <label>Username</label>
+              <input placeholder='Username' />
+            </Form.Field>
+            <Form.Field>
+              <label>Password</label>
+              <input placeholder='Password' />
+            </Form.Field>
+            <Button onClick={this.props.onclick}>Login</Button>
+          </Form>
+          </Segment>
+        </Segment.Group>
+      </div>
+    )
+  }
+}
 
 class Admin extends Component { 
   constructor(){
@@ -44,6 +50,5 @@ class Admin extends Component {
       return(<Login onclick={this.login}/>)
     }
   }
-  
 }
 export default Admin

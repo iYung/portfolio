@@ -32,6 +32,27 @@ router.get('/', function(req, res) {
 });
 
 //------------------------------------------------------------------------------
+//login
+router.route('/login')
+    .post(function(req, res) {
+        User.findOne({
+            username: req.body.username
+        },function(err, user) {
+            if (err)
+                return res.send(err);
+            if (user == null) {
+                return res.json({ success: false });
+            } else {
+                if (user.password == req.body.password) {
+                    return res.json({ success: true });
+                } else {
+                    return res.json({ success: false });
+                }
+            }
+        });
+    });
+
+//------------------------------------------------------------------------------
 //user
 router.route('/user')
     .post(function(req, res) {
