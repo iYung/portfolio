@@ -6,6 +6,10 @@ import Qs from 'qs';
 import Dashboard from './dashboard'
 
 class Login extends Component {
+  constructor(){
+    super();
+    this.state = {hasAdmin: false};
+  }
   
   login = () => {
     const username = document.getElementById("loginUsername").value;
@@ -20,7 +24,32 @@ class Login extends Component {
       });
   }
   
-  render(){ 
+  createUser = () => {
+    const username = document.getElementById("loginUsername").value;
+    const password = document.getElementById("loginPassword").value;
+    Axios.post('/api/user', Qs.stringify({ 'username': username, 'password': password }))
+      .then(res => {
+        if (res.data.success) {
+          this.props.onclick();
+        } else {
+          alert("User creation failed!");
+        }
+      });
+  }
+  
+  checkUser = () => {
+    Axios.get('/api/usercreated')
+      .then(res => {
+        this.setState({hasAdmin: res.data.userCreated})
+      });
+  }
+  
+  render(){
+    this.checkUser();
+    let button = <Label onClick={this.createUser}>Register</Label>;
+    if (this.state.hasAdmin) {
+      button = <Label onClick={this.login}>Login</Label>;
+    }
     return(
       <div>
         <Segment.Group>
@@ -37,7 +66,7 @@ class Login extends Component {
               <label>Password</label>
               <input id={"loginPassword"} placeholder='Password' />
             </Form.Field>
-            <Label onClick={this.login}>Login</Label>
+            {button}
           </Form>
           </Segment>
         </Segment.Group>

@@ -68,9 +68,9 @@ router.route('/user')
                 newUser.save(function(err) {
                     if (err)
                         return res.send(err);
-                    res.json({ message: 'New user saved!' });
+                    res.json({ message: 'New user saved!', success: true });
                 });
-            }else{ return res.send("Admin has already been created."); }
+            }else{ return res.json({ message: 'User already created!', success: false }); }
         });
     })
     .get(function(req, res) {
@@ -110,6 +110,18 @@ router.route('/user')
             if (err)
                 return res.send(err);
             res.json({ message: 'Successfully deleted all users' });
+        });
+    });
+router.route('/usercreated')
+    .get(function(req, res) {
+        User.findOne({
+            __v: 0
+        },function(err, user) {
+            if (err)
+                return res.send(err);
+            if (user == null) {
+                return res.json({ userCreated: false });
+            }else{ return res.json({ userCreated: true }); }
         });
     });
 
