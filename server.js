@@ -15,7 +15,7 @@ var config = require('./config');
 
 mongoose.connect(config.database);
 
-var port = 3000;
+var port = config.serverPort;
 
 //bCrypt setup
 const saltRounds = config.saltRounds;
