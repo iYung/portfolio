@@ -11,12 +11,14 @@ var Project = require('./models/project');
 var Education = require('./models/education');
 var Experience = require('./models/experience');
 
-mongoose.connect('mongodb://admin:password@ds117889.mlab.com:17889/portfolio');
+var config = require('./config');
+
+mongoose.connect(config.database);
 
 var port = 3000;
 
 //bCrypt setup
-const saltRounds = 10;
+const saltRounds = config.saltRounds;
 
 //allow CORS
 app.use(bodyParser.urlencoded({ extended: true }));
