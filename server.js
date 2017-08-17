@@ -2,6 +2,7 @@ var express    = require('express');        // call express
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var bcrypt = require('bcrypt');
 
 var Achievement = require('./models/achievement');
 var User = require('./models/user');
@@ -13,6 +14,9 @@ var Experience = require('./models/experience');
 mongoose.connect('mongodb://admin:password@ds117889.mlab.com:17889/portfolio');
 
 var port = 3000;
+
+//bCrypt setup
+const saltRounds = 10;
 
 //allow CORS
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -43,11 +47,13 @@ router.route('/login')
             if (user == null) {
                 return res.json({ success: false });
             } else {
-                if (user.password == req.body.password) {
-                    return res.json({ success: true });
-                } else {
-                    return res.json({ success: false });
-                }
+                bcrypt.compare(req.body.password, user.password, function(err, match) {
+                    if (match) {
+                        return res.json({ success: true });
+                    } else {
+                        return res.json({ success: false });
+                    }
+                });
             }
         });
     });
@@ -64,11 +70,13 @@ router.route('/user')
             if (user == null) {
                 var newUser = new User();
                 newUser.username = req.body.username;
-                newUser.password = req.body.password;
-                newUser.save(function(err) {
-                    if (err)
-                        return res.send(err);
-                    res.json({ message: 'New user saved!', success: true });
+                bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
+                    newUser.password = hash;
+                    newUser.save(function(err) {
+                        if (err)
+                            return res.send(err);
+                        res.json({ message: 'New user saved!', success: true });
+                    });
                 });
             }else{ return res.json({ message: 'User already created!', success: false }); }
         });
@@ -94,11 +102,13 @@ router.route('/user')
                 return res.send("User data not found.");
             } else {  
                 user.username = req.body.username;
-                user.password = req.body.password;
-                user.save(function(err) {
-                    if (err)
-                        return res.send(err);
-                    res.json({ message: 'New user data saved!' });
+                bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
+                    user.password = hash;
+                    user.save(function(err) {
+                        if (err)
+                            return res.send(err);
+                        res.json({ message: 'New user data saved!' });
+                    });
                 });
             }
         });

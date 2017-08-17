@@ -24,8 +24,8 @@ class UserData extends Component {
                 <input id={"username"} defaultValue={this.props.username}/>
             </Form.Field>
             <Form.Field>
-                <label>Password</label>
-                <input id={"password"} defaultValue={this.props.password}/>
+                <label>New Password</label>
+                <input id={"password"}/>
             </Form.Field>
             <Label onClick={() => this.update()}>Update</Label>
         </Form>
@@ -56,7 +56,7 @@ class User extends Component {
         return(
             <Segment.Group>
                 <Nav activeItem={'user'}/>
-                    <UserData key={this.state.users._id} username={this.state.users.username} password={this.state.users.password} />
+                    <UserData key={this.state.users._id} username={this.state.users.username}/>
             </Segment.Group>
         )}
 }
