@@ -9,9 +9,10 @@ class Login extends Component {
   constructor(){
     super();
     this.state = {hasAdmin: false};
+    this.login = this.login.bind(this);
   }
   
-  login = () => {
+  login(){
     const username = document.getElementById("loginUsername").value;
     const password = document.getElementById("loginPassword").value;
     Axios.post('/api/login', Qs.stringify({ 'username': username, 'password': password }))
@@ -48,6 +49,12 @@ class Login extends Component {
       });
   }
   
+  enter = (e) => {
+    if (e.which === 13) {
+      this.login();
+    }
+  }
+  
   render(){
     this.checkUser();
     let button = <Label onClick={this.createUser}>Register</Label>;
@@ -68,7 +75,7 @@ class Login extends Component {
             </Form.Field>
             <Form.Field>
               <label>Password</label>
-              <input id={"loginPassword"} placeholder='Password' />
+              <input id={"loginPassword"} placeholder='Password' onKeyPress={this.enter}/>
             </Form.Field>
             {button}
           </Form>
