@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Segment, Form, Label, Menu } from 'semantic-ui-react'
+import { Segment, Form, Label, Menu, Icon } from 'semantic-ui-react'
 import Axios from 'axios';
 import Qs from 'qs';
 
@@ -63,13 +63,13 @@ class Projects extends Component {
         super(props);
         this.state = {
             projects: [],
-            activeItem: "2017"
+            years: []
         };
         this.getPosts = this.getPosts.bind(this);
     }
   
     componentDidMount() {
-        this.getPosts();
+        this.getYears();
     }
     
     newPost(){
@@ -85,6 +85,25 @@ class Projects extends Component {
         });
     }
     
+    getYears = () => {
+        Axios.get('/api/projectyears/').then(res => {
+            this.setState({ years: res.data, activeItem: String(res.data.sort((a, b) => b - a)[0])}, this.getPosts);
+        });
+    }
+    
+    addYear = () => {
+        let newYear = prompt("Please enter the new year below:");
+        if (newYear === "" || !(/^[0-9]+$/.test(newYear))){
+            return alert("Please enter a year.");
+        } else if (newYear === null) {
+            return;
+        } else {
+            Axios.post('/api/project/new/'+ newYear, Qs.stringify({ 'userPass': sessionStorage.getItem('pass') })).then(res => {
+                this.getYears();
+            });
+        }
+    }
+    
     handleItemClick = (e, { name }) => {this.setState({ activeItem: name }, this.getPosts)}
     
     render(){ return(
@@ -92,9 +111,10 @@ class Projects extends Component {
             <Nav activeItem={'projects'}/>
             <Segment id="mainBar">
                 <Menu pointing secondary stackable >
-                  <Menu.Item name='2017' active={this.state.activeItem === '2017'} onClick={this.handleItemClick}/>
-                  <Menu.Item name='2016' active={this.state.activeItem === '2016'} onClick={this.handleItemClick}/>
-                  <Menu.Item name='2015' active={this.state.activeItem === '2015'} onClick={this.handleItemClick}/>
+                    <Menu.Item name='add' onClick={this.addYear}><Icon name='plus'/></Menu.Item>
+                    {this.state.years.concat().sort((a, b) => b - a).map(year =>
+                        <Menu.Item key={year} name={year} active={this.state.activeItem === String(year)} onClick={this.handleItemClick}/>
+                    )}
                 </Menu>
             </Segment>
             {this.state.projects.map(project =>

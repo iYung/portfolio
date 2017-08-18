@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Segment, Form, Label, Menu } from 'semantic-ui-react'
+import { Segment, Form, Label, Menu, Icon } from 'semantic-ui-react'
 import Axios from 'axios';
 import Qs from 'qs';
 
@@ -76,10 +76,11 @@ class Achievements extends Component {
         <Segment.Group>
             <Nav activeItem={'achievements'}/>
             <Segment id="mainBar">
-                <Menu pointing secondary stackable >
-                  <Menu.Item name='2017' active={this.state.activeItem === '2017'} onClick={this.handleItemClick}/>
-                  <Menu.Item name='2016' active={this.state.activeItem === '2016'} onClick={this.handleItemClick}/>
-                  <Menu.Item name='2015' active={this.state.activeItem === '2015'} onClick={this.handleItemClick}/>
+                <Menu pointing secondary stackable>
+                    <Menu.Item name='add'><Icon name='plus'/></Menu.Item>
+                    <Menu.Item name='2017' active={this.state.activeItem === '2017'} onClick={this.handleItemClick}/>
+                    <Menu.Item name='2016' active={this.state.activeItem === '2016'} onClick={this.handleItemClick}/>
+                    <Menu.Item name='2015' active={this.state.activeItem === '2015'} onClick={this.handleItemClick}/>
                 </Menu>
             </Segment>
             {this.state.achievements.map(achievement =>

@@ -173,7 +173,7 @@ router.route('/projects')
         },function(err, projects) {
             if (err)
                 return res.send(err);
-            res.json(projects);
+            return res.json(projects);
         });
     });
 //get projects by year
@@ -184,7 +184,7 @@ router.route('/projects/:year')
         },function(err, projects) {
             if (err)
                 return res.send(err);
-            res.json(projects);
+            return res.json(projects);
         });
     });
 //find and edit a project
@@ -196,6 +196,15 @@ router.route('/project/:id')
             }else{
                 return res.json(project);
             }
+        });
+    });
+//get project years
+router.route('/projectyears')
+    .get(function(req, res) {
+        Project.distinct('year', function(err, years) {
+            if (err)
+                return res.send(err);
+            return res.json(years);
         });
     });
 //------------------------------------------------------------------------------
