@@ -7,19 +7,18 @@ import Nav from './nav';
 
 class HomeData extends Component { 
   
-  update(){
-    const image = document.getElementById("homeImage").value;
-    const title = document.getElementById("homeTitle").value;
-    const txt = document.getElementById("homeTxt").value;
-    Axios.put('https://portfolio-iyung.c9users.io/api/home', Qs.stringify({ 'image': image, 'title': title, 'text': txt }))
-      .then(res => {
-        alert("Updated!")
-      });
-  }
+    update(){
+        const image = document.getElementById("homeImage").value;
+        const title = document.getElementById("homeTitle").value;
+        const txt = document.getElementById("homeTxt").value;
+        Axios.put('/api/home', Qs.stringify({ 'image': image, 'title': title, 'text': txt, 'userPass': sessionStorage.getItem('pass') }))
+            .then(res => {
+            alert(res.data.message)
+        });
+    }
   
-  del(){
-        Axios.delete('https://portfolio-iyung.c9users.io/api/home').then(res => {
-            alert("Deleted!");
+    del(){
+        Axios({method: 'delete', url: '/api/home', data: {userPass: sessionStorage.getItem('pass')}}).then(res => {
             this.props.cb();
         });
     }
@@ -58,13 +57,13 @@ class Home extends Component {
     }
     
     newPost(){
-        Axios.post('https://portfolio-iyung.c9users.io/api/home').then(res => {
+        Axios.post('/api/home', Qs.stringify({ 'userPass': sessionStorage.getItem('pass') })).then(res => {
             this.getPosts();
         });
     }
     
     getPosts(){
-        Axios.get('https://portfolio-iyung.c9users.io/api/home').then(res => {
+        Axios.get('/api/home').then(res => {
             const homes = res.data;
             this.setState({ homes: homes });
         });

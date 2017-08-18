@@ -14,15 +14,14 @@ class Project extends Component {
     const img = document.getElementById(this.props.identifier + 'img').value;
     const devpost = document.getElementById(this.props.identifier + 'devpost').value;
     const github = document.getElementById(this.props.identifier + 'github').value;
-    Axios.put('https://portfolio-iyung.c9users.io/api/project/' + this.props.identifier, Qs.stringify({ 'name': name, 'date': date, 'text': txt, 'img': img, 'devpost': devpost, 'github': github }))
+    Axios.put('/api/project/' + this.props.identifier, Qs.stringify({ 'name': name, 'date': date, 'text': txt, 'img': img, 'devpost': devpost, 'github': github, userPass: sessionStorage.getItem('pass') }))
       .then(res => {
-        alert("Updated!")
+        alert(res.data.message)
       });
   }
   
   del(){
-        Axios.delete('https://portfolio-iyung.c9users.io/api/project/' + this.props.identifier).then(res => {
-            alert("Deleted!");
+        Axios({method: 'delete', url: '/api/project/' + this.props.identifier, data: {userPass: sessionStorage.getItem('pass')}}).then(res => {
             this.props.cb();
         });
     }
@@ -74,13 +73,13 @@ class Projects extends Component {
     }
     
     newPost(){
-        Axios.post('https://portfolio-iyung.c9users.io/api/project/new/'+ this.state.activeItem).then(res => {
+        Axios.post('/api/project/new/'+ this.state.activeItem, Qs.stringify({ 'userPass': sessionStorage.getItem('pass') })).then(res => {
             this.getPosts();
         });
     }
     
     getPosts(){
-        Axios.get('https://portfolio-iyung.c9users.io/api/projects/' + this.state.activeItem).then(res => {
+        Axios.get('/api/projects/' + this.state.activeItem).then(res => {
             const projects = res.data;
             this.setState({ projects: projects });
         });

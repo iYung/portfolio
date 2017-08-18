@@ -11,15 +11,14 @@ class Achievement extends Component {
     const name = document.getElementById(this.props.identifier + 'name').value;
     const date = document.getElementById(this.props.identifier + 'date').value;
     const txt = document.getElementById(this.props.identifier + 'txt').value;
-    Axios.put('https://portfolio-iyung.c9users.io/api/achievement/' + this.props.identifier, Qs.stringify({ 'name': name, 'date': date, 'text': txt }))
+    Axios.put('/api/achievement/' + this.props.identifier, Qs.stringify({ 'name': name, 'date': date, 'text': txt, 'userPass': sessionStorage.getItem('pass') }))
       .then(res => {
-        alert("Updated!")
+        alert(res.data.message)
       });
   }
   
   del(){
-        Axios.delete('https://portfolio-iyung.c9users.io/api/achievement/' + this.props.identifier).then(res => {
-            alert("Deleted!");
+        Axios({method: 'delete', url: '/api/achievement/' + this.props.identifier, data: {userPass: sessionStorage.getItem('pass')}}).then(res => {
             this.props.cb();
         });
     }
@@ -59,13 +58,13 @@ class Achievements extends Component {
     }
     
     newPost(){
-        Axios.post('https://portfolio-iyung.c9users.io/api/achievement/new/'+ this.state.activeItem).then(res => {
+        Axios.post('/api/achievement/new/'+ this.state.activeItem,  Qs.stringify( {'userPass': sessionStorage.getItem('pass')})).then(res => {
             this.getPosts();
         });
     }
     
     getPosts(){
-        Axios.get('https://portfolio-iyung.c9users.io/api/achievements/' + this.state.activeItem).then(res => {
+        Axios.get('/api/achievements/' + this.state.activeItem).then(res => {
             const achievements = res.data;
             this.setState({ achievements: achievements });
         });

@@ -17,6 +17,8 @@ class Login extends Component {
     Axios.post('/api/login', Qs.stringify({ 'username': username, 'password': password }))
       .then(res => {
         if (res.data.success) {
+          sessionStorage.setItem('user', username);
+          sessionStorage.setItem('pass', password);
           this.props.onclick();
         } else {
           alert("Login failed!");
@@ -30,6 +32,8 @@ class Login extends Component {
     Axios.post('/api/user', Qs.stringify({ 'username': username, 'password': password }))
       .then(res => {
         if (res.data.success) {
+          sessionStorage.setItem('user', username);
+          sessionStorage.setItem('pass', password);
           this.props.onclick();
         } else {
           alert("User creation failed!");

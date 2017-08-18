@@ -11,15 +11,14 @@ class Post extends Component {
     const name = document.getElementById(this.props.identifier + 'name').value;
     const date = document.getElementById(this.props.identifier + 'date').value;
     const txt = document.getElementById(this.props.identifier + 'txt').value;
-    Axios.put('https://portfolio-iyung.c9users.io/api/education/' + this.props.identifier, Qs.stringify({ 'name': name, 'date': date, 'text': txt }))
+    Axios.put('/api/education/' + this.props.identifier, Qs.stringify({ 'name': name, 'date': date, 'text': txt, 'userPass': sessionStorage.getItem('pass') }))
       .then(res => {
-        alert("Updated!")
+        alert(res.data.message)
       });
   }
   
   del(){
-        Axios.delete('https://portfolio-iyung.c9users.io/api/education/' + this.props.identifier).then(res => {
-            alert("Deleted!");
+      Axios({method: 'delete', url: '/api/education/' + this.props.identifier, data: {userPass: sessionStorage.getItem('pass')}}).then(res => {
             this.props.cb();
         });
     }
@@ -58,13 +57,13 @@ class Education extends Component {
     }
     
     newPost(){
-        Axios.post('https://portfolio-iyung.c9users.io/api/education/').then(res => {
+        Axios.post('/api/education/', Qs.stringify({ 'userPass': sessionStorage.getItem('pass') })).then(res => {
             this.getPosts();
         });
     }
     
     getPosts(){
-        Axios.get('https://portfolio-iyung.c9users.io/api/education/').then(res => {
+        Axios.get('/api/education/').then(res => {
             const educations = res.data;
             this.setState({ educations: educations });
         });

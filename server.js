@@ -26,17 +26,14 @@ app.use(bodyParser.json());
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  res.header('Access-Coantrol-Allow-Headers', 'Content-Type');
   console.log('req made');
   next();
 });
 
 var router = express.Router();
 
-router.get('/', function(req, res) {
-    res.json({ message: 'hooray! welcome to our api!' });   
-});
-
+////Unauthenticated routes
 //------------------------------------------------------------------------------
 //login
 router.route('/login')
@@ -59,7 +56,6 @@ router.route('/login')
             }
         });
     });
-
 //------------------------------------------------------------------------------
 //user
 router.route('/user')
@@ -93,7 +89,177 @@ router.route('/user')
                 return res.json({ message: 'No user found!' });
             }else{ return res.json(user); }
         });
-    })
+    });
+router.route('/usercreated')
+    .get(function(req, res) {
+        User.findOne({
+            __v: 0
+        },function(err, user) {
+            if (err)
+                return res.send(err);
+            if (user == null) {
+                return res.json({ userCreated: false });
+            }else{ return res.json({ userCreated: true }); }
+        });
+    });
+//------------------------------------------------------------------------------
+//home
+router.route('/home')
+    .get(function(req, res) {
+        Home.find({
+            __v: 0
+        },function(err, home) {
+            if (err)
+                return res.send(err);
+            if (home == null){
+                return res.json({ message: 'Home page data not found!' });
+            } else {
+                return res.json(home);
+            }
+        });
+    });
+//------------------------------------------------------------------------------
+//education
+router.route('/education')
+    .get(function(req, res) {
+        Education.find({
+            __v: 0
+        },function(err, educations) {
+            if (err)
+                return res.send(err);
+            res.json(educations);
+        });
+    });
+//find and edit a education
+router.route('/education/:id')
+    .get(function(req, res) {
+        Education.findById(req.params.id, function(err, education) {
+            if (education == null) {
+                return res.send("Cannot find education post with id " + req.params.id);
+            }else{
+                return res.json(education);
+            }
+        });
+    });
+//------------------------------------------------------------------------------
+//experience
+router.route('/experience')
+    .get(function(req, res) {
+        Experience.find({
+            __v: 0
+        },function(err, experiences) {
+            if (err)
+                return res.send(err);
+            res.json(experiences);
+        });
+    });
+//find and edit a experience
+router.route('/experience/:id')
+    .get(function(req, res) {
+        Experience.findById(req.params.id, function(err, experience) {
+            if (experience == null) {
+                return res.send("Cannot find experience post with id " + req.params.id);
+            }else{
+                return res.json(experience);
+            }
+        });
+    });
+//------------------------------------------------------------------------------
+//projects
+router.route('/projects')
+    .get(function(req, res) {
+        Project.find({
+            __v: 0
+        },function(err, projects) {
+            if (err)
+                return res.send(err);
+            res.json(projects);
+        });
+    });
+//get projects by year
+router.route('/projects/:year')
+    .get(function(req, res) {
+        Project.find({
+            year: req.params.year
+        },function(err, projects) {
+            if (err)
+                return res.send(err);
+            res.json(projects);
+        });
+    });
+//find and edit a project
+router.route('/project/:id')
+    .get(function(req, res) {
+        Project.findById(req.params.id, function(err, project) {
+            if (project == null) {
+                return res.send("Cannot find project with id " + req.params.id);
+            }else{
+                return res.json(project);
+            }
+        });
+    });
+//------------------------------------------------------------------------------
+//achievements
+router.route('/achievements')
+    .get(function(req, res) {
+        Achievement.find({
+            __v: 0
+        },function(err, achievements) {
+            if (err)
+                return res.send(err);
+            res.json(achievements);
+        });
+    });
+//get achievements by year
+router.route('/achievements/:year')
+    .get(function(req, res) {
+        Achievement.find({
+            year: req.params.year
+        },function(err, achievements) {
+            if (err)
+                return res.send(err);
+            res.json(achievements);
+        });
+    });
+//find and edit a achievement
+router.route('/achievement/:id')
+    .get(function(req, res) {
+        Achievement.findById(req.params.id, function(err, achievement) {
+            if (achievement == null) {
+                return res.send("Cannot find achievement with id " + req.params.id);
+            }else{
+                return res.json(achievement);
+            }
+        });
+    });
+
+////Authentication Middleware
+//------------------------------------------------------------------------------
+router.use(function(req, res, next) {
+    User.findOne({
+            __v: 0
+        },function(err, user) {
+            if (err)
+                return res.send(err);
+            if (user == null) {
+                res.json({ message: 'No user is set up!', success: false });
+            }else{
+                console.log('user pass: ' + req.body.userPass);
+                bcrypt.compare(req.body.userPass, user.password, function(err, match) {
+                    if (match) {
+                        next();
+                    } else {
+                        return res.json({ message: 'Incorrect password!', success: false });
+                    }
+                });
+            }
+    });
+});
+
+////Authenticated routes
+//------------------------------------------------------------------------------
+//user
+router.route('/user')
     .put(function(req, res) {
         User.findOne({
             __v: 0
@@ -124,19 +290,6 @@ router.route('/user')
             res.json({ message: 'Successfully deleted all users' });
         });
     });
-router.route('/usercreated')
-    .get(function(req, res) {
-        User.findOne({
-            __v: 0
-        },function(err, user) {
-            if (err)
-                return res.send(err);
-            if (user == null) {
-                return res.json({ userCreated: false });
-            }else{ return res.json({ userCreated: true }); }
-        });
-    });
-
 //------------------------------------------------------------------------------
 //home
 router.route('/home')
@@ -179,19 +332,6 @@ router.route('/home')
             }
         });
     })
-    .get(function(req, res) {
-        Home.find({
-            __v: 0
-        },function(err, home) {
-            if (err)
-                return res.send(err);
-            if (home == null){
-                return res.json({ message: 'Home page data not found!' });
-            } else {
-                return res.json(home);
-            }
-        });
-    })
     .delete(function(req, res) {
         Home.remove({
             __v: 0
@@ -201,19 +341,9 @@ router.route('/home')
             res.json({ message: 'Successfully deleted home page data!'});
         });
     });
-
 //------------------------------------------------------------------------------
 //education
 router.route('/education')
-    .get(function(req, res) {
-        Education.find({
-            __v: 0
-        },function(err, educations) {
-            if (err)
-                return res.send(err);
-            res.json(educations);
-        });
-    })
     .delete(function(req, res) {
         Education.remove({
             __v: 0
@@ -239,7 +369,7 @@ router.route('/education/:id')
     .put(function(req, res) {
         Education.findById(req.params.id, function(err, education) {
             if (education == null) {
-                return res.send("Cannot find education post with id " + req.params.id);
+                return res.json({ message: "Cannot find education post with id " + req.params.id});
             }else{
                 education.name = req.body.name;
                 education.date = req.body.date;
@@ -248,16 +378,7 @@ router.route('/education/:id')
                     if (err)
                         return res.send(err);
                 });
-                return res.send(education.name + " edited!");
-            }
-        });
-    })
-    .get(function(req, res) {
-        Education.findById(req.params.id, function(err, education) {
-            if (education == null) {
-                return res.send("Cannot find education post with id " + req.params.id);
-            }else{
-                return res.json(education);
+                return res.json({ message: education.name + " edited!"});
             }
         });
     })
@@ -270,19 +391,9 @@ router.route('/education/:id')
             res.json({ message: 'Successfully deleted ' + req.params.id});
         });
     });
-
 //------------------------------------------------------------------------------
 //experience
 router.route('/experience')
-    .get(function(req, res) {
-        Experience.find({
-            __v: 0
-        },function(err, experiences) {
-            if (err)
-                return res.send(err);
-            res.json(experiences);
-        });
-    })
     .delete(function(req, res) {
         Experience.remove({
             __v: 0
@@ -308,7 +419,7 @@ router.route('/experience/:id')
     .put(function(req, res) {
         Experience.findById(req.params.id, function(err, experience) {
             if (experience == null) {
-                return res.send("Cannot find experience post with id " + req.params.id);
+                return res.json({ message: "Cannot find experience post with id " + req.params.id});
             }else{
                 experience.name = req.body.name;
                 experience.date = req.body.date;
@@ -317,16 +428,7 @@ router.route('/experience/:id')
                     if (err)
                         return res.send(err);
                 });
-                return res.send(experience.name + " edited!");
-            }
-        });
-    })
-    .get(function(req, res) {
-        Experience.findById(req.params.id, function(err, experience) {
-            if (experience == null) {
-                return res.send("Cannot find experience post with id " + req.params.id);
-            }else{
-                return res.json(experience);
+                return res.json({ message: experience.name + " edited!"});
             }
         });
     })
@@ -339,26 +441,16 @@ router.route('/experience/:id')
             res.json({ message: 'Successfully deleted ' + req.params.id});
         });
     });
-
 //------------------------------------------------------------------------------
 //projects
 router.route('/projects')
-    .get(function(req, res) {
-        Project.find({
-            __v: 0
-        },function(err, projects) {
-            if (err)
-                return res.send(err);
-            res.json(projects);
-        });
-    })
     .delete(function(req, res) {
         Project.remove({
             __v: 0
         }, function(err, project) {
             if (err)
                 return res.send(err);
-            res.json({ message: 'Successfully deleted all projects' });
+            return res.json({ message: 'Successfully deleted all projects' });
         });
     });
 //create project
@@ -375,18 +467,7 @@ router.route('/project/new/:year')
         project.save(function(err) {
             if (err)
                 return res.send(err);
-            res.json({ message: 'Project created!' });
-        });
-    });
-//get projects by year
-router.route('/projects/:year')
-    .get(function(req, res) {
-        Project.find({
-            year: req.params.year
-        },function(err, projects) {
-            if (err)
-                return res.send(err);
-            res.json(projects);
+            return res.json({ message: 'Project created!' });
         });
     });
 //find and edit a project
@@ -394,7 +475,7 @@ router.route('/project/:id')
     .put(function(req, res) {
         Project.findById(req.params.id, function(err, project) {
             if (project == null) {
-                return res.send("Cannot find project with id " + req.params.id);
+                return res.json({ message: "Cannot find project with id " + req.params.id });
             }else{
                 project.name = req.body.name;
                 project.date = req.body.date;
@@ -406,16 +487,7 @@ router.route('/project/:id')
                     if (err)
                         return res.send(err);
                 });
-                return res.send(project.name + " edited!");
-            }
-        });
-    })
-    .get(function(req, res) {
-        Project.findById(req.params.id, function(err, project) {
-            if (project == null) {
-                return res.send("Cannot find project with id " + req.params.id);
-            }else{
-                return res.json(project);
+                return res.json({ message: project.name + " edited!" });
             }
         });
     })
@@ -428,37 +500,16 @@ router.route('/project/:id')
             res.json({ message: 'Successfully deleted ' + req.params.id});
         });
     });
-
 //------------------------------------------------------------------------------
 //achievements
 router.route('/achievements')
-    .get(function(req, res) {
-        Achievement.find({
-            __v: 0
-        },function(err, achievements) {
-            if (err)
-                return res.send(err);
-            res.json(achievements);
-        });
-    })
     .delete(function(req, res) {
         Achievement.remove({
             __v: 0
         }, function(err, achievement) {
             if (err)
                 return res.send(err);
-            res.json({ message: 'Successfully deleted all achievements' });
-        });
-    });
-//get achievements by year
-router.route('/achievements/:year')
-    .get(function(req, res) {
-        Achievement.find({
-            year: req.params.year
-        },function(err, achievements) {
-            if (err)
-                return res.send(err);
-            res.json(achievements);
+            return res.json({ message: 'Successfully deleted all achievements' });
         });
     });
 //create achievement
@@ -472,7 +523,7 @@ router.route('/achievement/new/:year')
         achievement.save(function(err) {
             if (err)
                 return res.send(err);
-            res.json({ message: 'Achievement created!' });
+            return res.json({ message: 'Achievement created!' });
         });
     });
 //find and edit a achievement
@@ -480,7 +531,7 @@ router.route('/achievement/:id')
     .put(function(req, res) {
         Achievement.findById(req.params.id, function(err, achievement) {
             if (achievement == null) {
-                return res.send("Cannot find achievement with id " + req.params.id);
+                return res.json({ message: "Cannot find achievement with id " + req.params.id });
             }else{
                 achievement.name = req.body.name;
                 achievement.date = req.body.date;
@@ -489,16 +540,7 @@ router.route('/achievement/:id')
                     if (err)
                         return res.send(err);
                 });
-                return res.send(achievement.name + " edited!");
-            }
-        });
-    })
-    .get(function(req, res) {
-        Achievement.findById(req.params.id, function(err, achievement) {
-            if (achievement == null) {
-                return res.send("Cannot find achievement with id " + req.params.id);
-            }else{
-                return res.json(achievement);
+                return res.json({ message: achievement.name + " edited!" });
             }
         });
     })
@@ -508,10 +550,10 @@ router.route('/achievement/:id')
         }, function(err, achievement) {
             if (err)
                 return res.send(err);
-            res.json({ message: 'Successfully deleted ' + req.params.id});
+            return res.json({ message: 'Successfully deleted ' + req.params.id});
         });
     });
-
+    
 app.use('/api', router);
 
 app.listen(port);

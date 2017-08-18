@@ -10,9 +10,9 @@ class UserData extends Component {
   update(){
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
-    Axios.put('https://portfolio-iyung.c9users.io/api/user', Qs.stringify({ 'username': username, 'password': password }))
+    Axios.put('/api/user', Qs.stringify({ 'username': username, 'password': password, 'userPass': sessionStorage.getItem('pass') }))
       .then(res => {
-        alert("Updated!")
+        alert(res.data.message)
       });
   }
   
@@ -46,7 +46,7 @@ class User extends Component {
     }
     
     getPosts(){
-        Axios.get('https://portfolio-iyung.c9users.io/api/user').then(res => {
+        Axios.get('/api/user').then(res => {
             const users = res.data;
             this.setState({ users: users });
         });
