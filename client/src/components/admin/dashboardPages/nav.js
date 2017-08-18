@@ -9,6 +9,9 @@ class Nav extends Component {
     <Segment id="mainBar" textAlign={"center"}>
       <h2>Admin Dashboard</h2>
       <Menu pointing secondary stackable>
+        <Link to={'/admin/header'}>
+          <Menu.Item name='Header' active={this.props.activeItem === 'header'} />
+        </Link>
         <Link to={'/admin/home'}>
           <Menu.Item name='Home' active={this.props.activeItem === 'home'} />
         </Link>

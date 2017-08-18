@@ -3,10 +3,23 @@ import {
   Link
 } from 'react-router-dom'
 import { Menu, Dropdown, Icon } from 'semantic-ui-react'
+import Axios from 'axios';
 
 class Header extends Component { 
     
+    constructor(props) {
+    super(props);
+    this.state = {
+      headers: []
+    };
+  }
+  
     componentDidMount() {
+    Axios.get('/api/header')
+      .then(res => {
+        const headers = res.data;
+        this.setState({ headers });
+      });
     const height = document.getElementById('menuBar').clientHeight;
     this.props.updateheight(height);
   }
@@ -14,7 +27,7 @@ class Header extends Component {
   render(){
   
   return (
-    <Menu stackable id="menuBar">
+    <Menu id="menuBar">
         <Dropdown item labeled id="menuButton" icon={<Icon name="content" size="big" />}>
             <Dropdown.Menu>
                 <Link to="/">
@@ -29,15 +42,11 @@ class Header extends Component {
                 <Link to="/achievements">
                     <Dropdown.Item icon="trophy" text="Achievements"/>
                 </Link>
-                <Dropdown.Divider/>
-                <a href="https://www.linkedin.com/in/ivan-yung-897955109/" target="_blank">
-                    <Dropdown.Item icon="linkedin square" text="LinkedIn"/>
-                </a>
-                <a href="https://github.com/iYung" target="_blank">
-                    <Dropdown.Item icon="github alternate" text="GitHub"/>
-                </a>
             </Dropdown.Menu>
         </Dropdown>
+        {this.state.headers.map(head =>
+            <Menu.Item header>{head.text}</Menu.Item>
+        )}
     </Menu>
   )}
 }

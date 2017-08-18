@@ -10,7 +10,7 @@ var Home = require('./models/home');
 var Project = require('./models/project');
 var Education = require('./models/education');
 var Experience = require('./models/experience');
-
+var Header = require('./models/header')
 var config = require('./config');
 
 mongoose.connect(config.database);
@@ -53,6 +53,22 @@ router.route('/login')
                         return res.json({ success: false });
                     }
                 });
+            }
+        });
+    });
+//------------------------------------------------------------------------------
+//header
+router.route('/header')
+    .get(function(req, res) {
+        Header.find({
+            __v: 0
+        },function(err, header) {
+            if (err)
+                return res.send(err);
+            if (header == null){
+                return res.json({ message: 'Header data not found!' });
+            } else {
+                return res.json(header);
             }
         });
     });
@@ -266,6 +282,57 @@ router.use(function(req, res, next) {
 });
 
 ////Authenticated routes
+//------------------------------------------------------------------------------
+//header
+router.route('/header')
+    .post(function(req, res) {
+        Header.findOne({
+            __v: 0
+        },function(err, header) {
+            if (err)
+                return res.send(err);
+            if (header == null) {
+                var newHeader = new Header();
+                newHeader.title = req.body.title;
+                newHeader.image = req.body.image;
+                newHeader.text = req.body.text;
+                newHeader.save(function(err) {
+                    if (err)
+                        return res.send(err);
+                    res.json({ message: 'Header data created!' });
+                });
+            } else { return res.json({ message: 'Header data not found!' }); }
+        });
+    })
+    .put(function(req, res) {
+        Header.findOne({
+            __v: 0
+        },function(err, header) {
+            if (err)
+                return res.send(err);
+            if (header == null){
+                return res.send("Header data not found.");
+            } else {  
+                header.title = req.body.title;
+                header.image = req.body.image;
+                header.text = req.body.text;
+                header.save(function(err) {
+                    if (err)
+                        return res.send(err);
+                    return res.json({ message: 'New header data saved!' });
+                });
+            }
+        });
+    })
+    .delete(function(req, res) {
+        Header.remove({
+            __v: 0
+        }, function(err, achievement) {
+            if (err)
+                return res.send(err);
+            res.json({ message: 'Successfully deleted header data!'});
+        });
+    });
 //------------------------------------------------------------------------------
 //user
 router.route('/user')
