@@ -257,6 +257,15 @@ router.route('/achievement/:id')
             }
         });
     });
+//get achievement years
+router.route('/achievementyears')
+    .get(function(req, res) {
+        Achievement.distinct('year', function(err, years) {
+            if (err)
+                return res.send(err);
+            return res.json(years);
+        });
+    });
 
 ////Authentication Middleware
 //------------------------------------------------------------------------------

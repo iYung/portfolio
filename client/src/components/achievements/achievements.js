@@ -1,9 +1,4 @@
 import React, {Component} from 'react';
-import {
-  Route,
-  Link,
-  Redirect
-} from 'react-router-dom'
 import { Segment, Menu } from 'semantic-ui-react'
 import Axios from 'axios';
 
@@ -14,112 +9,49 @@ const Achievement = props => { return (
   </Segment>)
 }
 
-class Page2017 extends Component {
+class Achievements extends Component { 
+    constructor(props) {
+        super(props);
+        this.state = {
+            achievements: [],
+            years: []
+        };
+        this.getPosts = this.getPosts.bind(this);
+    }
   
-  constructor(props) {
-    super(props);
-    this.state = {
-      achievements: []
-    };
-  }
-  
-  componentDidMount() {
-    Axios.get('/api/achievements/2017')
-      .then(res => {
-        const achievements = res.data;
-        this.setState({ achievements });
-      });
-  }
-  
-  render(){ return (
-    <Segment.Group>
-      <Nav activeItem='2017'/>
-      {this.state.achievements.map(achievement =>
-        <Achievement key={achievement._id} name={achievement.name} date={achievement.date} txt={achievement.text}/>
-      )}
-    </Segment.Group>
-  )}
-}
-
-class Page2016 extends Component {
-  
-  constructor(props) {
-    super(props);
-    this.state = {
-      achievements: []
-    };
-  }
-  
-  componentDidMount() {
-    Axios.get('/api/achievements/2016')
-      .then(res => {
-        const achievements = res.data;
-        this.setState({ achievements });
-      });
-  }
-  
-  render(){ return (
-  <Segment.Group>
-    <Nav activeItem='2016'/>
-    {this.state.achievements.map(achievement =>
-            <Achievement key={achievement._id} name={achievement.name} date={achievement.date} txt={achievement.text}/>
+    componentDidMount() {
+        this.getYears();
+    }
+    
+    getPosts(){
+        Axios.get('/api/achievements/' + this.state.activeItem).then(res => {
+            const achievements = res.data;
+            this.setState({ achievements: achievements });
+        });
+    }
+    
+    getYears = () => {
+        Axios.get('/api/achievementyears/').then(res => {
+            this.setState({ years: res.data, activeItem: String(res.data.sort((a, b) => b - a)[0])}, this.getPosts);
+        });
+    }
+    
+    handleItemClick = (e, { name }) => {this.setState({ activeItem: name }, this.getPosts)}
+    
+    render(){ return(
+        <Segment.Group>
+            <Segment id="mainBar" textAlign={"center"}>
+                <h2>Achievements</h2>
+                <Menu pointing secondary stackable>
+                    {this.state.years.concat().sort((a, b) => b - a).map(year =>
+                        <Menu.Item key={year} name={year} active={this.state.activeItem === String(year)} onClick={this.handleItemClick}/>
+                    )}
+                </Menu>
+            </Segment>
+            {this.state.achievements.map(achievement =>
+                <Achievement key={achievement._id} identifier={achievement._id} name={achievement.name} date={achievement.date} txt={achievement.text}/>
+            )}
+        </Segment.Group>
     )}
-    </Segment.Group>
-  )}
 }
-
-class Page2015 extends Component {
-  
-  constructor(props) {
-    super(props);
-    this.state = {
-      achievements: []
-    };
-  }
-  
-  componentDidMount() {
-    Axios.get('/api/achievements/2015')
-      .then(res => {
-        const achievements = res.data;
-        this.setState({ achievements });
-      });
-  }
-  
-  render(){ return (
-  <Segment.Group>
-    <Nav activeItem='2015'/>
-    {this.state.achievements.map(achievement =>
-            <Achievement key={achievement._id} name={achievement.name} date={achievement.date} txt={achievement.text}/>
-    )}
-    </Segment.Group>
-  )}
-}
-
-class Nav extends Component {
-  render(){ return (
-  <Segment id="mainBar" textAlign={"center"}>
-    <h2>Achievements</h2>
-    <Menu pointing secondary>
-      <Link to={`/achievements/2017`}>
-        <Menu.Item name='2017' active={this.props.activeItem === '2017'} />
-      </Link>
-      <Link to={`/achievements/2016`}>
-        <Menu.Item name='2016' active={this.props.activeItem === '2016'} />
-      </Link>
-      <Link to={`/achievements/2015`}>
-        <Menu.Item name='2015' active={this.props.activeItem=== '2015'} />
-      </Link>
-    </Menu>
-  </Segment>  
-  )}
-}
-
-const Achievements = () => (
-  <div>
-    <Route exact path="/achievements" render={() => ( <Redirect to="/achievements/2017"/>)}/>
-    <Route path="/achievements/2017" component={Page2017}/>
-    <Route path="/achievements/2016" component={Page2016}/>
-    <Route path="/achievements/2015" component={Page2015}/>
-  </div>
-)
 export default Achievements
