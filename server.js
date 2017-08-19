@@ -15,10 +15,13 @@ var config = require('./config');
 
 mongoose.connect(config.database);
 
-var port = config.serverPort;
-
 //bCrypt setup
 const saltRounds = config.saltRounds;
+
+app.use(express.static('client/build'));
+app.use('/admin',express.static('client/build'));
+
+app.set("port", process.env.PORT || config.serverPort);
 
 //allow CORS
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -641,5 +644,5 @@ router.route('/achievement/:id')
     
 app.use('/api', router);
 
-app.listen(port);
-console.log('Magic happens on port ' + port);
+app.listen(app.get("port"));
+console.log('Magic happens on port ' + app.get("port"));
