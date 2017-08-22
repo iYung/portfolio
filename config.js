@@ -14,3 +14,6 @@ module.exports = {
 //build
 //update config
 //update .gitignores for build and config
+
+//pure-shore is live
+//hidden-waters is demo
