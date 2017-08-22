@@ -45,7 +45,7 @@ class Header extends Component {
             </Dropdown.Menu>
         </Dropdown>
         {this.state.headers.map(head =>
-            <Menu.Item header>{head.text}</Menu.Item>
+            <Menu.Item header key={head._id}>{head.text}</Menu.Item>
         )}
     </Menu>
   )}

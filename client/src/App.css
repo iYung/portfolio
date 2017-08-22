@@ -1,5 +1,5 @@
 #menuBar {
-    background-color: #efefef;
+    background-color: #e5e5ff;
     width: 100%;
     position: fixed;
     z-index: 444;
@@ -15,4 +15,8 @@
 
 #textSegment {
     white-space:pre-wrap;
+}
+
+#mainBar {
+    background-color: #e5e5ff;
 }

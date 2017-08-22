@@ -18,10 +18,17 @@ mongoose.connect(config.database);
 //bCrypt setup
 const saltRounds = config.saltRounds;
 
-app.use(express.static('client/build'));
-app.use('/admin',express.static('client/build'));
+var port;
 
-app.set("port", process.env.PORT || config.serverPort);
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static('client/build'));
+    app.use('/admin',express.static('client/build'));
+    process.env.PORT || config.serverPort
+} else {
+    port = config.serverPort;
+}
+
+app.set("port", port);
 
 //allow CORS
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -311,7 +318,7 @@ router.route('/header')
                 newHeader.save(function(err) {
                     if (err)
                         return res.send(err);
-                    res.json({ message: 'Header data created!' });
+                    res.json({ message: 'Header data created! Please refresh the page for these changes to be implemented.' });
                 });
             } else { return res.json({ message: 'Header data not found!' }); }
         });
@@ -331,7 +338,7 @@ router.route('/header')
                 header.save(function(err) {
                     if (err)
                         return res.send(err);
-                    return res.json({ message: 'New header data saved!' });
+                    return res.json({ message: 'New header data saved! Please refresh the page for these changes to be implemented.' });
                 });
             }
         });

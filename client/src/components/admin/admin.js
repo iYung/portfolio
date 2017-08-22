@@ -75,7 +75,7 @@ class Login extends Component {
             </Form.Field>
             <Form.Field>
               <label>Password</label>
-              <input id={"loginPassword"} placeholder='Password' onKeyPress={this.enter}/>
+              <input type="password" id={"loginPassword"} placeholder='Password' onKeyPress={this.enter}/>
             </Form.Field>
             {button}
           </Form>

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './home.css'
 import { Image, Segment } from 'semantic-ui-react'
 import Axios from 'axios';
 
