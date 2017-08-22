@@ -303,7 +303,7 @@ router.use(function(req, res, next) {
 ////Authenticated routes
 //------------------------------------------------------------------------------
 //header
-router.route('/header')
+router.route('/header') 
     .post(function(req, res) {
         Header.findOne({
             __v: 0
