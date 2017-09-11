@@ -5,7 +5,7 @@ import Axios from 'axios';
 const Entry = props => { return (
   <Segment>
     <h3>{props.position} — {props.date}</h3>
-    <p>{props.txt}</p>
+    <p id="textSegment">{props.txt}</p>
   </Segment>
 )}
 

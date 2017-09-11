@@ -26,7 +26,7 @@ class Project extends Component {
       <Segment>
         {image}
         <h3>{this.props.name}</h3>
-        <p>{this.props.txt}</p>
+        <p id="textSegment">{this.props.txt}</p>
         {linksLabel} {devpost}{github}
       </Segment>
     )
