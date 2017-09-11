@@ -25,7 +25,7 @@ class Project extends Component {
     return (
       <Segment>
         {image}
-        <h3>{this.props.name}</h3>
+        <h3>{this.props.name} — {this.props.date}</h3>
         <p id="textSegment">{this.props.txt}</p>
         {linksLabel} {devpost}{github}
       </Segment>
