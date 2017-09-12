@@ -13,7 +13,7 @@ var Experience = require('./models/experience');
 var Header = require('./models/header')
 var config = require('./config');
 
-mongoose.connect(config.database);
+mongoose.connect(config.database,{useMongoClient: true});
 
 //bCrypt setup
 const saltRounds = config.saltRounds;
