@@ -23,6 +23,9 @@ var port;
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
     app.use('/admin',express.static('client/build'));
+    app.use('/eduexp',express.static('client/build'));
+    app.use('/projects',express.static('client/build'));
+    app.use('/achievements',express.static('client/build'));
     port = process.env.PORT || config.serverPort;
 } else {
     port = config.serverPort;
